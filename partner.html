@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H.I. Technologies | For Owners and Visionaries</title>
+    <title>H.I. Technologies | Seeking the Right Partner</title>
     <style>
         :root {
             --bg-main: #0b0f13;
@@ -185,7 +185,8 @@
 
         .fit-grid,
         .pilot-grid,
-        .proof-grid {
+        .proof-grid,
+        .cta-grid {
             display: grid;
             gap: 1rem;
         }
@@ -193,14 +194,17 @@
         .fit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .pilot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .cta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
         .fit-card,
         .pilot-card,
-        .proof-card { padding: 1.2rem; }
+        .proof-card,
+        .cta-card { padding: 1.2rem; }
 
         .fit-card h3,
         .pilot-card h3,
-        .proof-card h3 {
+        .proof-card h3,
+        .cta-card h3 {
             font-family: var(--font-mono);
             font-size: 0.98rem;
             color: var(--accent);
@@ -210,6 +214,7 @@
         .fit-card p,
         .pilot-card p,
         .proof-card p,
+        .cta-card p,
         .panel p,
         li { color: var(--text-muted); }
 
@@ -237,7 +242,8 @@
         @media (max-width: 900px) {
             .fit-grid,
             .pilot-grid,
-            .proof-grid { grid-template-columns: 1fr; }
+            .proof-grid,
+            .cta-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 640px) {
@@ -262,10 +268,10 @@
     </nav>
 
     <header>
-        <span class="eyebrow">For Owners and Visionaries</span>
+        <span class="eyebrow">Seeking the Right Partner</span>
         <h1>/partner</h1>
         <p class="lead">H.I. Technologies is looking for the right partner: an owner, founder, or visionary who understands that some of the highest-value people in a company are losing too much attention to invisible friction.</p>
-        <p class="intro">This is not a dashboard pitch. It is not generic AI enthusiasm. It is a proposal to build anti-friction Windows infrastructure for teams that already have sharp operators, but need a better operating environment around them.</p>
+        <p class="intro">This is not a dashboard pitch. It is not generic AI enthusiasm. It is a proposal to build anti-friction Windows infrastructure for teams that already have sharp operators, but need a better operating environment around them. The partnership thesis is simple: if your people are strong but the environment is weak, the environment is now the bottleneck.</p>
         <div class="header-actions">
             <a href="#fit" class="cta primary">Who This Is For</a>
             <a href="#pilot" class="cta">What A Pilot Looks Like</a>
@@ -360,6 +366,20 @@
         <div class="panel">
             <p>If your company has people who move faster than the environment around them, then the environment is the bottleneck. H.I. Technologies is about fixing that bottleneck.</p>
             <p>The right partner is not just buying software. They are helping shape a better operating layer for Windows work: one that lowers drag, preserves trust, and gives strong people a cleaner place to do strong work.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What I Want Next <span class="badge">Conversation Start</span></h2>
+        <div class="cta-grid">
+            <article class="cta-card">
+                <h3>A Real Pilot Surface</h3>
+                <p>One team, one workflow, one friction-heavy surface where better structure, routing, naming, or shell behavior can be tested without theatrics.</p>
+            </article>
+            <article class="cta-card">
+                <h3>A Serious Partner Conversation</h3>
+                <p>The right partner sees this as the beginning of a product or platform relationship, not a one-off tweak. The goal is to prove the thesis and grow it deliberately.</p>
+            </article>
         </div>
     </section>
 
