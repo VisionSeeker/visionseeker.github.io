@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Why MCP Is Novel</title>
+    <style>
+        :root {
+            --bg-main: #0c1016;
+            --bg-card: rgba(18, 23, 33, 0.9);
+            --bg-card-strong: #131925;
+            --border-color: rgba(147, 197, 253, 0.18);
+            --text-primary: #eef4ff;
+            --text-muted: #9eadc3;
+            --accent: #93c5fd;
+            --accent-warm: #fbbf24;
+            --accent-soft: #34d399;
+            --accent-alert: #fca5a5;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(147, 197, 253, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.08), transparent 28%),
+                linear-gradient(180deg, #0c1016 0%, #101723 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(147, 197, 253, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(147, 197, 253, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(12, 16, 22, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+        .topbar-brand,
+        .topbar-nav a,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+        header,
+        .panel,
+        .novel-card,
+        .strength-card,
+        .weakness-card,
+        .future-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        header { padding: 2.45rem; margin-bottom: 2rem; }
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+        .lead {
+            font-size: 1.14rem;
+            max-width: 56rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .intro {
+            max-width: 60rem;
+            color: var(--text-muted);
+        }
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.4rem;
+        }
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.82rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+        section { margin-bottom: 2rem; }
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(147, 197, 253, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(147, 197, 253, 0.24);
+        }
+        .panel { padding: 1.5rem; }
+        .novel-grid,
+        .strength-grid,
+        .weakness-grid,
+        .future-grid {
+            display: grid;
+            gap: 1rem;
+        }
+        .novel-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .strength-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .weakness-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .future-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .novel-card,
+        .strength-card,
+        .weakness-card,
+        .future-card { padding: 1.2rem; }
+        .novel-card h3,
+        .strength-card h3,
+        .weakness-card h3,
+        .future-card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .weakness-card h3 { color: var(--accent-alert); }
+        .future-card h3 { color: var(--accent-soft); }
+        .novel-card p,
+        .strength-card p,
+        .weakness-card p,
+        .future-card p,
+        .panel p,
+        li { color: var(--text-muted); }
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+        code { font-family: var(--font-mono); color: var(--text-primary); }
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        @media (max-width: 900px) {
+            .novel-grid,
+            .strength-grid,
+            .weakness-grid,
+            .future-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .novel-card, .strength-card, .weakness-card, .future-card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="partner.html">Partner</a>
+            <a href="improvements.html">Improvements</a>
+            <a href="case.html">CASE</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Governed Rule Layer</span>
+        <h1>/mcp</h1>
+        <p class="lead">The MCP idea is novel because it treats local metadata, folder doctrine, and file-routing rules as a first-class operating layer instead of scattering them across scripts, habits, comments, and tribal memory.</p>
+        <p class="intro">In this ecosystem, <code>mcp.ini</code> is not just another config file. It is the local authority for classification, routing, and proposal logic. The broader MCP kernel idea is the next step: a governed decision layer that can observe, propose, preserve, and promote without silently mutating the machine.</p>
+        <div class="header-actions">
+            <a href="#novel" class="cta">Why It Is Novel</a>
+            <a href="#strengths" class="cta">Strengths</a>
+            <a href="#future" class="cta">Future</a>
+        </div>
+    </header>
+
+    <section id="novel">
+        <h2 class="section-heading">Why This Is Novel <span class="badge">Local Authority</span></h2>
+        <div class="novel-grid">
+            <article class="novel-card">
+                <h3>Rules Become Visible</h3>
+                <p>Instead of burying routing logic across wrappers and one-off scripts, <code>mcp.ini</code> gives the machine a visible place to say what belongs where and why.</p>
+            </article>
+            <article class="novel-card">
+                <h3>Proposal Before Apply</h3>
+                <p>The system can notice patterns, classify files, and suggest structure without forcing silent change. That is a very different temperament from most “automation” layers.</p>
+            </article>
+            <article class="novel-card">
+                <h3>Metadata As Operating Layer</h3>
+                <p>The novel move is not only the file itself. It is the idea that local metadata can act like a kernel for routing, governance, and preservation inside everyday Windows work.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="strengths">
+        <h2 class="section-heading">Strengths <span class="badge">What It Already Does Well</span></h2>
+        <div class="strength-grid">
+            <article class="strength-card">
+                <h3>Human-Readable Authority</h3>
+                <p><code>mcp.ini</code> is inspectable. That matters because people can read the rules that shape the machine instead of guessing what some hidden layer decided.</p>
+            </article>
+            <article class="strength-card">
+                <h3>Safe Routing Logic</h3>
+                <p>It supports SWEEP’s preservation-first model: move or copy deliberately, log everything, and make actions reversible rather than destructive.</p>
+            </article>
+            <article class="strength-card">
+                <h3>Domain-Aware Structure</h3>
+                <p>It allows rules to be semantic, not merely structural. `colors`, `notepad`, `CASE`, and future domains can behave according to identity, not just path shape.</p>
+            </article>
+            <article class="strength-card">
+                <h3>Promotion Path</h3>
+                <p>It gives the system a place where observed patterns can be promoted into reviewed policy instead of staying as folklore inside the operator’s head.</p>
+            </article>
+            <article class="strength-card">
+                <h3>Preservation Temperament</h3>
+                <p>The model favors preservation before deletion, review before promotion, and explicit buckets for conflict or uncertainty instead of pretending every classification is obvious.</p>
+            </article>
+            <article class="strength-card">
+                <h3>Kernel Direction</h3>
+                <p>The MCP kernel concept points toward a broader governed local substrate: something that can see file behavior, interpret rules, and coordinate action without becoming a silent tyrant.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Weaknesses It Overcomes <span class="badge">What It Replaces</span></h2>
+        <div class="weakness-grid">
+            <article class="weakness-card">
+                <h3>Tribal Workflow Memory</h3>
+                <p>Without a governed rule layer, classification and routing live in heads, comments, habits, and half-remembered scripts. That does not scale and it does not survive people changes.</p>
+            </article>
+            <article class="weakness-card">
+                <h3>Silent Drift</h3>
+                <p>When rules are implicit, folders drift, wrappers multiply, and exceptions accumulate until the environment becomes harder to trust than it is to use.</p>
+            </article>
+            <article class="weakness-card">
+                <h3>Unsafe Cleanup</h3>
+                <p>Most ad hoc cleanup logic either does too little or does too much. The MCP model overcomes this by making preservation, review, and conflict buckets part of the design.</p>
+            </article>
+            <article class="weakness-card">
+                <h3>Flat Configuration Thinking</h3>
+                <p>A normal config file is passive. The MCP kernel idea overcomes that limitation by pointing toward a metadata layer that can actually participate in local intelligence and governance.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What The Future Could Be <span class="badge">Kernel Direction</span></h2>
+        <div class="future-grid">
+            <article class="future-card">
+                <h3>Observed Pattern Intake</h3>
+                <p>The kernel watches real file behavior and repeated user decisions, then proposes candidate rules instead of expecting the operator to specify everything upfront.</p>
+            </article>
+            <article class="future-card">
+                <h3>Domain-Specific Rule Packs</h3>
+                <p>Different operating domains such as CASE, colors, Notepad, ClipboardExports, drives, and business archives could have structured rule packs rather than one giant undifferentiated config.</p>
+            </article>
+            <article class="future-card">
+                <h3>Evidence-Aware Promotion</h3>
+                <p>Promotion could become evidence-based: counts, manifests, protection hints, logs, and prior operator approvals all shaping whether a rule graduates into local policy.</p>
+            </article>
+            <article class="future-card">
+                <h3>Governed Local Intelligence</h3>
+                <p>The endgame is not a magical agent. It is a governed local intelligence layer that can classify, route, suggest, and preserve while remaining legible to the owner.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Simple Why <span class="badge">Public Close</span></h2>
+        <div class="panel">
+            <p>The novel thing about MCP is not just that there is an <code>ini</code> file. Plenty of systems have config files. The novel thing is treating local metadata as part of the operating layer itself: something that helps the machine stay organized, explain itself, and improve without becoming chaotic.</p>
+            <p>That makes <code>mcp.ini</code> and the MCP kernel idea one of the clearest bridges between raw automation and governed infrastructure. It is where local intelligence becomes structure instead of noise.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Local metadata becomes novel when it starts behaving like governed infrastructure.</p>
+    </footer>
+</div>
+</body>
+</html>
