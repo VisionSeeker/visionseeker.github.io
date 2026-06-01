@@ -1,1 +1,625 @@
-simple
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Pane + DOS Ecosystem</title>
+    <style>
+        :root {
+            --bg-main: #091014;
+            --bg-card: rgba(15, 26, 31, 0.88);
+            --bg-card-strong: #101b21;
+            --border-color: rgba(125, 211, 252, 0.18);
+            --text-primary: #e6f1f5;
+            --text-muted: #8ca1ab;
+            --accent: #7dd3fc;
+            --accent-warm: #fbbf24;
+            --accent-success: #34d399;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.08), transparent 28%),
+                linear-gradient(180deg, #071015 0%, #0b1418 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(7, 16, 21, 0.82);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .topbar-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .topbar-nav a,
+        .hero-action {
+            color: var(--text-muted);
+            text-decoration: none;
+            border: 1px solid transparent;
+            transition: 160ms ease;
+        }
+
+        .topbar-nav a {
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.92rem;
+        }
+
+        .topbar-nav a:hover,
+        .hero-action:hover {
+            color: var(--text-primary);
+            border-color: var(--border-color);
+            background: rgba(125, 211, 252, 0.08);
+        }
+
+        header {
+            border: 1px solid var(--border-color);
+            background: rgba(10, 19, 24, 0.72);
+            border-radius: 18px;
+            padding: 2.4rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        .org-title {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.9rem;
+        }
+
+        .org-subtitle {
+            color: var(--text-primary);
+            font-size: 1.15rem;
+            max-width: 42rem;
+            margin-bottom: 1rem;
+        }
+
+        .org-copy {
+            color: var(--text-muted);
+            max-width: 46rem;
+            font-size: 1rem;
+        }
+
+        .hero-actions,
+        .status-strip,
+        .stack-grid,
+        .doctrine-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .hero-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .hero-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.78rem 1rem;
+            border-radius: 999px;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+        }
+
+        .hero-action.primary {
+            color: #061117;
+            background: var(--accent);
+            border-color: rgba(125, 211, 252, 0.4);
+        }
+
+        .hero-action.primary:hover {
+            color: #061117;
+            background: #9ce1ff;
+        }
+
+        .hero-action.secondary {
+            border-color: var(--border-color);
+        }
+
+        .status-strip {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-top: 2rem;
+        }
+
+        .status-item {
+            padding: 1rem 1.1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            background: rgba(9, 16, 20, 0.72);
+        }
+
+        .status-label {
+            display: block;
+            color: var(--accent-warm);
+            font-family: var(--font-mono);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 0.35rem;
+        }
+
+        .status-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .featured-section,
+        .principles-section,
+        .stack-section,
+        .doctrine-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-heading {
+            font-size: 1.45rem;
+            font-weight: 650;
+            margin-bottom: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(125, 211, 252, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(125, 211, 252, 0.25);
+        }
+
+        .pane-card,
+        .repo-card,
+        .principle-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+        }
+
+        .pane-card {
+            padding: 2rem;
+        }
+
+        .pane-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.65rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            letter-spacing: -0.03em;
+        }
+
+        .project-title:hover,
+        .repo-name:hover {
+            text-decoration: underline;
+        }
+
+        .pane-copy {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .pane-notes {
+            color: var(--text-muted);
+            margin-bottom: 1.4rem;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+
+        .principle-card {
+            padding: 1rem;
+            background: linear-gradient(180deg, rgba(16, 27, 33, 0.95), rgba(9, 16, 20, 0.95));
+        }
+
+        .principle-card h3 {
+            font-size: 0.95rem;
+            font-family: var(--font-mono);
+            color: var(--accent-warm);
+            margin-bottom: 0.35rem;
+        }
+
+        .principle-card p {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .repo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .stack-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .stack-card,
+        .doctrine-item {
+            background-color: var(--bg-card-strong);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.35rem;
+            box-shadow: var(--shadow);
+        }
+
+        .stack-label,
+        .doctrine-item h3 {
+            font-family: var(--font-mono);
+            color: var(--accent);
+        }
+
+        .stack-label {
+            font-size: 0.84rem;
+            margin-bottom: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .stack-card p,
+        .doctrine-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .doctrine-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .doctrine-item h3 {
+            font-size: 1rem;
+            margin-bottom: 0.45rem;
+        }
+
+        .repo-card {
+            padding: 1.45rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 235px;
+        }
+
+        .repo-name {
+            font-size: 1.08rem;
+            font-family: var(--font-mono);
+            color: var(--accent);
+            text-decoration: none;
+            margin-bottom: 0.6rem;
+            display: inline-block;
+        }
+
+        .repo-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .repo-meta {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            margin-top: 4.5rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 860px) {
+            .pillars {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .status-strip,
+            .stack-grid,
+            .doctrine-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem 0.85rem 2.5rem;
+            }
+
+            .topbar {
+                position: static;
+                border-radius: 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header,
+            .pane-card,
+            .repo-card,
+            .principle-card,
+            .stack-card,
+            .doctrine-item {
+                border-radius: 14px;
+            }
+
+            header,
+            .pane-card {
+                padding: 1.4rem;
+            }
+
+            .pane-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .pillars {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <nav class="topbar" aria-label="Primary">
+        <a href="#top" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="#pane">Pane</a>
+            <a href="#stack">Stack</a>
+            <a href="#repos">Repos</a>
+            <a href="#doctrine">Doctrine</a>
+        </div>
+    </nav>
+
+    <header id="top">
+        <span class="eyebrow">H.I. before A.I.</span>
+        <h1 class="org-title">H.I. Technologies</h1>
+        <p class="org-subtitle">Anti-friction infrastructure for Windows built around trusted runtime control, forensic visibility, and clean human-facing systems.</p>
+        <p class="org-copy">The Pane + DOS ecosystem treats the desktop as a governable operating layer instead of a pile of utilities. The goal is simple: protect focus, reduce invisible maintenance, and keep automation legible enough for people to trust it.</p>
+        <div class="hero-actions">
+            <a href="#pane" class="hero-action primary">Enter /pane</a>
+            <a href="#repos" class="hero-action secondary">View Ecosystem</a>
+        </div>
+        <div class="status-strip">
+            <div class="status-item">
+                <span class="status-label">Operating Model</span>
+                <p>Source stays authored. Runtime stays trusted. Promotion is explicit.</p>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Core Promise</span>
+                <p>Reduce friction without hiding execution, policy, or recovery boundaries.</p>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Project Temperament</span>
+                <p>Human-readable automation with logs, rollback, and owner-visible structure.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="featured-section">
+        <h2 class="section-heading">Featured Initiative <span class="badge">Local Operating Layer</span></h2>
+        <div class="pane-card" id="pane">
+            <div class="pane-header">
+                <a href="#pane" class="project-title">/pane</a>
+                <span class="badge" style="color: var(--accent-success); border-color: rgba(52, 211, 153, 0.28); background: rgba(52, 211, 153, 0.12);">Architecture in Motion</span>
+            </div>
+            <p class="pane-copy"><strong>Pane</strong> is the trusted local operating layer for shell behavior, routing, governance, and presentation. It is designed as infrastructure from the start: signed, audited, ACL-protected, rollbackable, and explicit about what is source versus what is live runtime.</p>
+            <p class="pane-notes">Instead of hiding risk behind convenience, Pane makes the system readable. If a change affects trust, execution, or shell integration, it gets treated like infrastructure work, not casual UI work.</p>
+            <div class="pillars">
+                <article class="principle-card">
+                    <h3>Security</h3>
+                    <p>Trusted runtime boundaries, protected shell surfaces, and no silent drift from source into execution.</p>
+                </article>
+                <article class="principle-card">
+                    <h3>Forensics</h3>
+                    <p>Actions leave traces, incidents can be reconstructed, and the system can explain what happened.</p>
+                </article>
+                <article class="principle-card">
+                    <h3>Governance</h3>
+                    <p>Policy proposes before it applies, rules stay reviewable, and runtime changes stay controlled.</p>
+                </article>
+                <article class="principle-card">
+                    <h3>Presentation</h3>
+                    <p>Clean hierarchy, sparse surfaces, and a consumer view that helps people work instead of hunt.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="stack-section" id="stack">
+        <h2 class="section-heading">How The Stack Fits <span class="badge">Source -> Runtime -> Policy</span></h2>
+        <div class="stack-grid">
+            <article class="stack-card">
+                <div class="stack-label">Source</div>
+                <p>Editable trees such as Hawk source, SWEEP logic, imports, scripts, and rules. This is where systems are shaped, tested, and reviewed before anything becomes live.</p>
+            </article>
+            <article class="stack-card">
+                <div class="stack-label">Runtime</div>
+                <p>Published binaries, live imports, shell surfaces, and executable behavior. Runtime is treated as deployed infrastructure, not as a convenient scratchpad.</p>
+            </article>
+            <article class="stack-card">
+                <div class="stack-label">Policy</div>
+                <p>Governed metadata and rule promotion through systems like SWEEP and <code>mcp.ini</code>. The system may learn, but it must propose before it applies.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="principles-section" id="repos">
+        <h2 class="section-heading">Ecosystem Repositories <span class="badge">Source + Runtime + Policy</span></h2>
+        <div class="repo-grid">
+            <article class="repo-card" id="hawk">
+                <div>
+                    <a href="#hawk" class="repo-name">/hawk</a>
+                    <p class="repo-desc">Explorer-facing shell integration and command dispatch runtime. Hawk carries the high-trust menu, import, signing, publish, and ACL boundary that makes Pane operational instead of theoretical.</p>
+                </div>
+                <div class="repo-meta">
+                    <span>C++ / NSS / PowerShell</span>
+                    <span>Infrastructure + Runtime</span>
+                </div>
+            </article>
+
+            <article class="repo-card" id="dos">
+                <div>
+                    <a href="#dos" class="repo-name">/dos</a>
+                    <p class="repo-desc">The architectural Windows root. DOS keeps the visible system sparse and intentional while pushing support machinery out of the consumer view and preserving a stable mental map.</p>
+                </div>
+                <div class="repo-meta">
+                    <span>Windows Ops / Structure</span>
+                    <span>Presentation + Governance</span>
+                </div>
+            </article>
+
+            <article class="repo-card" id="sweep">
+                <div>
+                    <a href="#sweep" class="repo-name">/sweep</a>
+                    <p class="repo-desc">An MCP-aware file janitor that classifies loose files, proposes safe routing, preserves evidence before movement, and logs every decision. Cleanup is reversible, reviewable, and never silent.</p>
+                </div>
+                <div class="repo-meta">
+                    <span>C# / MCP / Logging</span>
+                    <span>Policy + Recovery</span>
+                </div>
+            </article>
+
+            <article class="repo-card" id="mcp">
+                <div>
+                    <a href="#mcp" class="repo-name">/mcp.ini</a>
+                    <p class="repo-desc">The governed metadata surface for local rules, folder doctrine, and promotion flow. It captures what the system knows without letting policy mutate itself invisibly.</p>
+                </div>
+                <div class="repo-meta">
+                    <span>INI / Metadata</span>
+                    <span>Governance Surface</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="doctrine-section" id="doctrine">
+        <h2 class="section-heading">Operating Doctrine <span class="badge">Project Rules</span></h2>
+        <div class="doctrine-list">
+            <article class="doctrine-item">
+                <h3>Security Before Convenience</h3>
+                <p>If a feature can influence the OS, launch commands, or alter runtime behavior, it is designed as security-sensitive from day one. Trust is structural, not decorative.</p>
+            </article>
+            <article class="doctrine-item">
+                <h3>Forensics Must Exist</h3>
+                <p>The system should be able to explain what happened after the fact. Logs, traces, and reviewable actions are part of the product, not cleanup work after the product.</p>
+            </article>
+            <article class="doctrine-item">
+                <h3>Governance Beats Drift</h3>
+                <p>Rules, folder doctrine, publish steps, and runtime boundaries are expected to be explicit. Silent policy mutation and casual runtime edits are treated as design failures.</p>
+            </article>
+            <article class="doctrine-item">
+                <h3>Presentation Serves Clarity</h3>
+                <p>DOS root structure, menu hierarchy, labels, and visual surfaces exist to keep the system legible. Presentation is part of control because people need to read what the machine is doing.</p>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Human Intelligence first. Trusted automation second.</p>
+    </footer>
+
+</div>
+</body>
+</html>
