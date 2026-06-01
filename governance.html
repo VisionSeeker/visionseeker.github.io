@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Why Governance Matters</title>
+    <style>
+        :root {
+            --bg-main: #0e0f16;
+            --bg-card: rgba(22, 24, 36, 0.88);
+            --border-color: rgba(125, 211, 252, 0.2);
+            --text-primary: #eef2ff;
+            --text-muted: #a7b0c8;
+            --accent: #7dd3fc;
+            --accent-warm: #fbbf24;
+            --accent-soft: #a5b4fc;
+            --accent-alert: #fda4af;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.1), transparent 32%),
+                linear-gradient(180deg, #0e0f16 0%, #131726 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(14, 15, 22, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+        .topbar-brand,
+        .topbar-nav a,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+        header,
+        .panel,
+        .card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        header { padding: 2.45rem; margin-bottom: 2rem; }
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+        .lead { font-size: 1.14rem; max-width: 58rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .intro { max-width: 62rem; color: var(--text-muted); }
+        .header-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.82rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+        section { margin-bottom: 2rem; }
+        .section-heading { display: flex; align-items: center; gap: 0.7rem; font-size: 1.35rem; margin-bottom: 1rem; }
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(125, 211, 252, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(125, 211, 252, 0.26);
+        }
+        .panel { padding: 1.5rem; }
+        .grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .card { padding: 1.2rem; }
+        .card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .card p,
+        .panel p,
+        li { color: var(--text-muted); }
+        .alert h3 { color: var(--accent-alert); }
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 0.8rem 0.9rem;
+            border-bottom: 1px solid rgba(125, 211, 252, 0.13);
+            text-align: left;
+            vertical-align: top;
+        }
+        th { font-family: var(--font-mono); color: var(--accent); font-size: 0.84rem; text-transform: uppercase; letter-spacing: 0.04em; }
+        td { color: var(--text-muted); }
+        tr:last-child td { border-bottom: 0; }
+        .refs-list { list-style: none; padding-left: 0; }
+        .refs-list li { padding: 0.9rem 0; border-bottom: 1px solid rgba(125, 211, 252, 0.12); }
+        .refs-list li:last-child { border-bottom: 0; padding-bottom: 0; }
+        code { font-family: var(--font-mono); color: var(--text-primary); }
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        @media (max-width: 900px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="partner.html">Partner</a>
+            <a href="mcp.html">MCP</a>
+            <a href="sweep.html">SWEEP</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Intent-Driven Operations</span>
+        <h1>/governance</h1>
+        <p class="lead">Governance in computing is not bureaucracy. It is design: move repetitive execution into policy so humans spend less time doing and more time thinking.</p>
+        <p class="intro">In classic systems, people act as the runtime engine. In governed systems, intent is encoded into policy layers and software carries the repetitive operational burden. The human shifts into oversight, architecture, and judgment.</p>
+        <div class="header-actions">
+            <a href="#model" class="cta">Core Model</a>
+            <a href="#evidence" class="cta">Evidence</a>
+            <a href="#future" class="cta">Future</a>
+        </div>
+    </header>
+
+    <section id="model">
+        <h2 class="section-heading">Core Framework <span class="badge">Thinking Over Doing</span></h2>
+        <div class="panel">
+            <p><strong>Classic computing:</strong> <code>[Human Brain] -> (Manual Action) -> [OS Engine] -> [Result]</code></p>
+            <p><strong>Governed computing:</strong> <code>[Human Intent] -> (INI/Policy) -> [Governance Layer] -> [OS Engine] -> [Result]</code></p>
+            <p>The objective is straightforward: automate low-level predictable execution, retain human judgment for boundary decisions, and preserve accountability through logs and policy clarity.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Principles <span class="badge">Design Rules</span></h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Zero-Friction Execution</h3>
+                <p>Routine actions should execute autonomously when policy confidence is high enough.</p>
+            </article>
+            <article class="card">
+                <h3>Thinking vs Doing Ratio</h3>
+                <p>Reduce low-level interaction load so working memory can stay on planning, diagnosis, and architecture.</p>
+            </article>
+            <article class="card">
+                <h3>Determinism Over Discretion</h3>
+                <p>If a workflow is repetitive and predictable, manual execution introduces variance and avoidable errors.</p>
+            </article>
+            <article class="card">
+                <h3>Scaffolded Friction</h3>
+                <p>Keep intentional checkpoints where high-stakes judgment is required; automate everything else.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="evidence">
+        <h2 class="section-heading">What Research Supports <span class="badge">Continuum View</span></h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Administrative Automation Gains</h3>
+                <p>Automated governance studies report consistent gains in efficiency, procedural consistency, and transparency when rule structures are encoded into systems.</p>
+            </article>
+            <article class="card alert">
+                <h3>Automation Bias Risk</h3>
+                <p>Frictionless systems can cause agency surrender. The fix is not less automation; it is better boundary prompts and audit scaffolding.</p>
+            </article>
+            <article class="card">
+                <h3>Operational Burden Shift</h3>
+                <p>Rules move from human habits into software. Teams stop depending on memory and heroics to keep systems coherent.</p>
+            </article>
+            <article class="card">
+                <h3>Healing Architecture Direction</h3>
+                <p>Governed systems can adapt to state changes with policy-backed routines, rather than repeated manual maintenance cycles.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Strategic Breakdown <span class="badge">Operational Lens</span></h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Manual Doing System</th>
+                        <th>Governed Thinking System</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cognitive State</td>
+                        <td>Frequent micro-interruptions and manual path recovery.</td>
+                        <td>Longer deep-focus blocks with policy-bounded oversight.</td>
+                    </tr>
+                    <tr>
+                        <td>Error Handling</td>
+                        <td>Reactive, human patching after breakage.</td>
+                        <td>Proactive fallbacks and deterministic exception handling.</td>
+                    </tr>
+                    <tr>
+                        <td>Friction Level</td>
+                        <td>High admin drag and clutter tax.</td>
+                        <td>Low admin drag with relevant surfaced alerts.</td>
+                    </tr>
+                    <tr>
+                        <td>Human Role</td>
+                        <td>Runtime executor.</td>
+                        <td>Policy architect and auditor.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why A Founder Cares <span class="badge">Leverage</span></h2>
+        <div class="panel">
+            <p>Strong teams lose throughput when smart people spend their day on repetitive operational glue work. Governance converts that invisible tax into infrastructure.</p>
+            <p>The result is not just cleaner systems. It is better use of people: less firefighting, better consistency, and more strategic velocity at the same headcount.</p>
+        </div>
+    </section>
+
+    <section id="future">
+        <h2 class="section-heading">Future Direction <span class="badge">Kernel Path</span></h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Policy-Native Runtime</h3>
+                <p>Move from script-heavy operations to runtime layers that interpret policy as first-class operational input.</p>
+            </article>
+            <article class="card">
+                <h3>Judgment Gates</h3>
+                <p>Inject deliberate checkpoints for high-impact decisions to preserve human agency without restoring routine overhead.</p>
+            </article>
+            <article class="card">
+                <h3>Silo to System</h3>
+                <p>Start local with accountable silos, then scale successful governance patterns across environments.</p>
+            </article>
+            <article class="card">
+                <h3>Auditable Trust</h3>
+                <p>Treat logging and traceability as core product features, not afterthought diagnostics.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">References <span class="badge">Source Spine</span></h2>
+        <div class="panel">
+            <ul class="refs-list">
+                <li>Roehl, U. B. U. (2024). <em>Automated, Administrative Decision-making and Good Governance.</em> Research@CBS.</li>
+                <li>Larsson, S., et al. (2026). <em>The Automated Administration: Governance of ADM in the public sector.</em> Lund University Research Programme.</li>
+                <li>Authors. (2026). <em>Cognitive Agency Surrender: Defending Epistemic Sovereignty via Scaffolded AI Friction.</em> arXiv:2603.21735.</li>
+                <li>ResearchGate. (2026). <em>The Calculus of control: metrics, morality, and the machinery of governance in pre-algorithmic optimization systems.</em></li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Governed systems for high-trust execution.</p>
+    </footer>
+</div>
+</body>
+</html>
