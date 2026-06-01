@@ -186,7 +186,8 @@
         .fit-grid,
         .pilot-grid,
         .proof-grid,
-        .cta-grid {
+        .cta-grid,
+        .contact-grid {
             display: grid;
             gap: 1rem;
         }
@@ -195,16 +196,19 @@
         .pilot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .cta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .contact-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
         .fit-card,
         .pilot-card,
         .proof-card,
-        .cta-card { padding: 1.2rem; }
+        .cta-card,
+        .contact-card { padding: 1.2rem; }
 
         .fit-card h3,
         .pilot-card h3,
         .proof-card h3,
-        .cta-card h3 {
+        .cta-card h3,
+        .contact-card h3 {
             font-family: var(--font-mono);
             font-size: 0.98rem;
             color: var(--accent);
@@ -215,6 +219,7 @@
         .pilot-card p,
         .proof-card p,
         .cta-card p,
+        .contact-card p,
         .panel p,
         li { color: var(--text-muted); }
 
@@ -243,7 +248,8 @@
             .fit-grid,
             .pilot-grid,
             .proof-grid,
-            .cta-grid { grid-template-columns: 1fr; }
+            .cta-grid,
+            .contact-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 640px) {
@@ -380,6 +386,32 @@
                 <h3>A Serious Partner Conversation</h3>
                 <p>The right partner sees this as the beginning of a product or platform relationship, not a one-off tweak. The goal is to prove the thesis and grow it deliberately.</p>
             </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Who Should Contact Me <span class="badge">Best Fit</span></h2>
+        <div class="contact-grid">
+            <article class="contact-card">
+                <h3>Owners Who Feel The Drag</h3>
+                <p>You can already sense that your company is paying a tax on invisible friction, scattered routines, and repeated operator recovery work, and you want a sharper operating environment.</p>
+            </article>
+            <article class="contact-card">
+                <h3>Visionaries With A Pilot In Mind</h3>
+                <p>You have one workflow, one team, or one friction-heavy surface where a better Windows workbench could be tested seriously and measured honestly.</p>
+            </article>
+            <article class="contact-card">
+                <h3>Builders Who Want A Real Partnership</h3>
+                <p>You are interested in shaping a product or platform relationship around anti-friction infrastructure, not just buying another isolated utility.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Good Next Step <span class="badge">Simple Start</span></h2>
+        <div class="panel">
+            <p>The best next conversation is simple: identify one repeated friction surface, describe who feels it most, and decide whether it is worth piloting a better operating layer around that problem.</p>
+            <p>If that conversation sounds useful, then the fit is probably real.</p>
         </div>
     </section>
 
