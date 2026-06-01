@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Why Hawk Matters</title>
+    <style>
+        :root {
+            --bg-main: #081017;
+            --bg-card: rgba(14, 25, 33, 0.9);
+            --bg-card-strong: #0e1820;
+            --border-color: rgba(96, 165, 250, 0.18);
+            --text-primary: #e5f2ff;
+            --text-muted: #97aabb;
+            --accent: #60a5fa;
+            --accent-warm: #f59e0b;
+            --accent-soft: #34d399;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(245, 158, 11, 0.08), transparent 28%),
+                linear-gradient(180deg, #081017 0%, #0c151c 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .container { max-width: 1020px; margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(8, 16, 23, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand,
+        .topbar-nav a,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+
+        header,
+        .panel,
+        .reason-card,
+        .compare-card,
+        .impact-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            padding: 2.35rem;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.35rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            max-width: 52rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 56rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.3rem;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+
+        section { margin-bottom: 2rem; }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(96, 165, 250, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(96, 165, 250, 0.24);
+        }
+
+        .panel { padding: 1.5rem; }
+
+        .reason-grid,
+        .compare-grid,
+        .impact-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .reason-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        .reason-card,
+        .compare-card,
+        .impact-card { padding: 1.2rem; }
+
+        .reason-card h3,
+        .compare-card h3,
+        .impact-card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .reason-card p,
+        .compare-card p,
+        .impact-card p,
+        .panel p,
+        li { color: var(--text-muted); }
+
+        .compare-card.before h3 { color: var(--accent-warm); }
+        .compare-card.after h3 { color: var(--accent-soft); }
+
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 900px) {
+            .reason-grid,
+            .compare-grid,
+            .impact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .reason-card, .compare-card, .impact-card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="case.html">CASE</a>
+            <a href="improvements.html">Improvements</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Custom Shell Thesis</span>
+        <h1>/hawk</h1>
+        <p class="lead">Hawk is not important because context menus are flashy. It is important because the shell is one of the most repeated decision surfaces in Windows, and repeated decision surfaces either protect focus or destroy it.</p>
+        <p class="intro">Built on an upgraded Shell 1.9.19 lineage, Hawk turns the Explorer context layer into something more predictive, reactive, and legible. The point is not to add clutter. The point is to make the machine meet the user with the right actions, at the right time, with less hunting, less drift, and less interruption.</p>
+        <div class="header-actions">
+            <a href="index.html" class="cta">Return to main page</a>
+            <a href="#why" class="cta">Why a custom shell matters</a>
+        </div>
+    </header>
+
+    <section id="why">
+        <h2 class="section-heading">Why A Custom Shell Matters <span class="badge">Human Experiment</span></h2>
+        <div class="reason-grid">
+            <article class="reason-card">
+                <h3>The Shell Is Repeated Thought</h3>
+                <p>People do not touch the shell once. They touch it constantly. Every right-click becomes a micro-decision about what is possible, what is relevant, and how much context the machine already understands.</p>
+            </article>
+            <article class="reason-card">
+                <h3>Prediction Reduces Hunting</h3>
+                <p>A predictive shell reduces menu scanning, command hunting, path friction, and the small recovery costs that break flow even when no single interruption looks severe on its own.</p>
+            </article>
+            <article class="reason-card">
+                <h3>Reaction Makes Context Useful</h3>
+                <p>A reactive shell changes what it offers based on file type, runtime state, workflow intent, and safety boundaries. That makes the desktop surface feel less dumb and less indifferent.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Ordinary Shell vs Hawk <span class="badge">Before / After</span></h2>
+        <div class="compare-grid">
+            <article class="compare-card before">
+                <h3>Static Menu Thinking</h3>
+                <p>A conventional shell surface often behaves like a flat list of possibilities. It gives the user options, but it does not meaningfully help them discover the right option faster or with more confidence.</p>
+            </article>
+            <article class="compare-card after">
+                <h3>Predictive Reactive Surface</h3>
+                <p>Hawk turns the context menu into a live routing layer. It can expose the right tools, wrappers, and workflow actions closer to the moment of need, which means less translation from thought into execution.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What Hawk Actually Improves <span class="badge">Operational Payoff</span></h2>
+        <div class="impact-grid">
+            <article class="impact-card">
+                <h3>Reduced Menu Friction</h3>
+                <p>Context menus stop being a generic heap and start behaving like a work surface with intent. That lowers the mental cost of choosing the next action.</p>
+            </article>
+            <article class="impact-card">
+                <h3>Better Command Routing</h3>
+                <p>The right-click layer becomes a bridge into wrappers, scripts, structured actions, and governed runtime behavior instead of a dead-end list of shell verbs.</p>
+            </article>
+            <article class="impact-card">
+                <h3>Cleaner Human Focus</h3>
+                <p>When the correct actions are easier to find, people spend less time remembering where tools live and more time actually doing the work those tools exist to support.</p>
+            </article>
+            <article class="impact-card">
+                <h3>Safer High-Trust Actions</h3>
+                <p>Because Hawk is treated as infrastructure, the shell can expose powerful actions without pretending they are trivial. Logging, publish discipline, and runtime boundaries keep power from turning into drift.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why This Fits Pane <span class="badge">Infrastructure Surface</span></h2>
+        <div class="panel">
+            <p>Pane argues that the machine should be secure, forensically visible, governed, and presentable at the same time. Hawk is where that theory touches the hand. The user right-clicks, and the system either gives them a clearer path or it does not.</p>
+            <p>That is why Hawk matters. It is not a decorative shell fork. It is the Explorer-facing runtime surface where command dispatch, menu structure, source-versus-runtime discipline, and trust boundaries become visible in ordinary work.</p>
+            <p>In that sense, Hawk is part of the human experiment: can a Windows shell become more aligned with how a person actually thinks, without turning into a noisy magic trick? The answer only counts if the surface becomes more useful and more controlled at the same time.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Important Constraint <span class="badge">No Splashback</span></h2>
+        <div class="panel">
+            <p>A custom shell only helps if it does not produce new chaos. That is why Hawk is paired with publish workflow, ACL protection, runtime boundaries, and explicit source/runtime separation. The menu layer can be smarter, but it cannot become vague, unsafe, or impossible to audit.</p>
+            <ul>
+                <li>Source is edited deliberately.</li>
+                <li>Runtime is published deliberately.</li>
+                <li>Commands are treated as high-trust actions.</li>
+                <li>The shell surface should help the user without hiding what the system is doing.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Public Close <span class="badge">Simple Why</span></h2>
+        <div class="panel">
+            <p>A custom shell matters because Windows work keeps happening at the edge between thought and action. If the shell is dumb, static, and cluttered, the user pays for that edge over and over. If the shell is predictive, reactive, and governed, the user gets some of that thought back.</p>
+            <p>Hawk is one answer to that problem. It treats context menus as a serious execution surface, not a side feature. That makes it one of the clearest examples of the whole Pane and <code>\DOS</code> direction: remove friction where people actually feel it.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. A better shell matters because repeated decisions matter.</p>
+    </footer>
+</div>
+</body>
+</html>
