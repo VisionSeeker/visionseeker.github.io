@@ -153,6 +153,7 @@
         }
         .panel { padding: 1.5rem; }
         .model-grid,
+        .example-grid,
         .strength-grid,
         .weakness-grid,
         .future-grid,
@@ -161,16 +162,19 @@
             gap: 1rem;
         }
         .model-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .example-grid { grid-template-columns: 1.2fr 0.8fr; }
         .strength-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
         .weakness-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .future-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         .model-card,
+        .example-card,
         .strength-card,
         .weakness-card,
         .future-card,
         .proof-card { padding: 1.2rem; }
         .model-card h3,
+        .example-card h3,
         .strength-card h3,
         .weakness-card h3,
         .future-card h3,
@@ -183,12 +187,45 @@
         .weakness-card h3 { color: var(--accent-alert); }
         .future-card h3 { color: var(--accent-soft); }
         .model-card p,
+        .example-card p,
         .strength-card p,
         .weakness-card p,
         .future-card p,
         .proof-card p,
         .panel p,
         li { color: var(--text-muted); }
+        .example-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        .example-card pre {
+            margin-top: 0.85rem;
+            padding: 1rem;
+            border-radius: 14px;
+            border: 1px solid rgba(134, 239, 172, 0.14);
+            background: rgba(8, 13, 10, 0.88);
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+            font-size: 0.83rem;
+            line-height: 1.55;
+            overflow-x: auto;
+        }
+        .example-meta {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0.85rem;
+        }
+        .example-meta li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(134, 239, 172, 0.12);
+        }
+        .example-meta li:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
         .refs-list {
             list-style: none;
             padding-left: 0;
@@ -218,6 +255,7 @@
         }
         @media (max-width: 900px) {
             .model-grid,
+            .example-grid,
             .strength-grid,
             .weakness-grid,
             .future-grid,
@@ -251,6 +289,7 @@
         <p class="intro">SWEEP uses <code>mcp.ini</code> as its rule authority. For now it is silo-based, meaning the parent domain defines what stays and what moves. It can run on a timer, on a schedule, or on demand. It is WAL-ready, low resource, low impact, fully logged, and designed to write later rather than thrash the environment in real time.</p>
         <div class="header-actions">
             <a href="#model" class="cta">Operating Model</a>
+            <a href="#example" class="cta">Example Policy</a>
             <a href="#strengths" class="cta">Strengths</a>
             <a href="#future" class="cta">Future</a>
         </div>
@@ -270,6 +309,60 @@
             <article class="model-card">
                 <h3>Timer, Schedule, On Demand</h3>
                 <p>SWEEP can be invoked by clock, by planned schedule, or by explicit operator intent. That flexibility matters because different silos want different rhythms of cleanup.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="example">
+        <h2 class="section-heading">Example Silo Policy <span class="badge">Concrete Proof</span></h2>
+        <div class="example-grid">
+            <article class="example-card">
+                <h3>Example <code>mcp.ini</code> Rule Set</h3>
+                <p>This is the kind of rule surface that makes SWEEP useful. It is readable, local to the silo, and easy to audit later.</p>
+                <pre>[silo:ClipboardExports]
+root = C:\DOS\ClipboardExports
+mode = wal-ready
+schedule = every 20 minutes
+on_demand = true
+log = C:\DOS\Logs\sweep-clipboardexports.log
+
+[keep]
+patterns = *.db;*.sqlite;*.md;*.ps1;*.json
+paths = active\;research\;actions\
+
+[move:images]
+patterns = *.png;*.jpg;*.webp
+target = C:\DOS\ClipboardExports\media\images
+
+[move:archives]
+patterns = *.zip;*.7z;*.rar
+target = C:\DOS\ClipboardExports\holding\archives
+
+[move:staging]
+patterns = *.tmp;*.bak;*.old
+target = C:\DOS\ClipboardExports\holding\staging
+
+[safety]
+dry_run_first = true
+preserve_original_timestamps = true
+conflict_mode = suffix
+delete_source = false</pre>
+            </article>
+            <article class="example-card">
+                <h3>What Happens</h3>
+                <p>SWEEP reads the silo rule file, evaluates the current folder state, records intent, and then processes according to the selected rhythm.</p>
+                <ul class="example-meta">
+                    <li><strong>Timer:</strong> A light recurring pass keeps the silo from accumulating obvious clutter.</li>
+                    <li><strong>Schedule:</strong> Heavier movement can wait for off-hours or the quiet part of the day.</li>
+                    <li><strong>On Demand:</strong> An operator can run SWEEP before a handoff, export, backup, or review.</li>
+                    <li><strong>WAL-Ready:</strong> The engine can observe and queue first, then write after confidence is high enough.</li>
+                </ul>
+                <pre>2026-06-01T09:20:00Z  SWEEP  silo=ClipboardExports  mode=dry-run
+2026-06-01T09:20:00Z  KEEP   notes\session-map.md
+2026-06-01T09:20:00Z  MOVE   dump\capture-4419.png -> media\images\capture-4419.png
+2026-06-01T09:20:01Z  MOVE   inbox\old-bundle.zip -> holding\archives\old-bundle.zip
+2026-06-01T09:20:01Z  HOLD   inbox\active-plan.md  reason=keep-pattern
+2026-06-01T09:20:01Z  DONE   scanned=148 moved=2 held=1 skipped=145</pre>
             </article>
         </div>
     </section>
