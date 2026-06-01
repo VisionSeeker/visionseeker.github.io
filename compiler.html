@@ -119,6 +119,7 @@
             <a href="partner.html">Partner</a>
             <a href="governance.html">Governance</a>
             <a href="mcp.html">MCP</a>
+            <a href="git.html">Git</a>
             <a href="sweep.html">SWEEP</a>
         </div>
     </nav>
@@ -127,7 +128,7 @@
         <span class="eyebrow">Unified Build Surface</span>
         <h1>/compiler</h1>
         <p class="lead">COMPILER is not just a repository of compiler binaries. It is an operating layer: one command, many languages, one policy surface for build behavior.</p>
-        <p class="intro">The objective is consistency. Developers should not waste attention remembering build syntax for every language and every project shape. One predictable launcher can route to the right toolchain, log outcomes, and standardize build intent.</p>
+        <p class="intro">The objective is consistency. Developers should not waste attention remembering build syntax for every language and every project shape. One predictable launcher can route to the right toolchain, log outcomes, and standardize build intent. Profiles like <code>default</code>, <code>ci</code>, and <code>hpc</code> can shift the route order without changing the command surface.</p>
         <div class="header-actions">
             <a href="#model" class="cta">Model</a>
             <a href="#strengths" class="cta">Strengths</a>
@@ -144,6 +145,20 @@
 compiler.cmd build service.csproj
 compiler.cmd build cli.go
 compiler.cmd run script.py</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Two Meanings Of Omni <span class="badge">Clear Scope</span></h2>
+        <div class="grid">
+            <article class="card">
+                <h3>RIKEN Omni Compiler</h3>
+                <p>A specialized HPC transformation framework for C and Fortran parallel models. It focuses on high-performance translation workflows, not daily multi-language developer routing.</p>
+            </article>
+            <article class="card">
+                <h3>\DOS Omni-Compiler</h3>
+                <p>An orchestration layer for operator speed: one command surface, many language routes, consistent policy, and deterministic fallback logic for normal engineering pipelines.</p>
+            </article>
         </div>
     </section>
 
@@ -186,7 +201,7 @@ compiler.cmd run script.py</pre>
     <section id="future">
         <h2 class="section-heading">Future Direction <span class="badge">Kernel Link</span></h2>
         <div class="panel">
-            <p>The next step is policy-native compilation: `compiler.cmd` routes through MCP-backed rules, supports per-silo defaults, and emits structured logs that can be audited like any other governed execution path.</p>
+            <p>The next step is policy-native compilation: <code>compiler.cmd</code> routes through MCP-backed rules, supports per-silo defaults, and emits structured logs that can be audited like any other governed execution path.</p>
         </div>
     </section>
 

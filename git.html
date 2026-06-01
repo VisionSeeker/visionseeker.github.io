@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Why Git Matters</title>
+    <style>
+        :root {
+            --bg-main: #0b1114;
+            --bg-card: rgba(17, 24, 28, 0.9);
+            --border-color: rgba(56, 189, 248, 0.18);
+            --text-primary: #eefcf7;
+            --text-muted: #9eb7b0;
+            --accent: #7dd3fc;
+            --accent-soft: #86efac;
+            --accent-warm: #fbbf24;
+            --accent-alert: #fda4af;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(134, 239, 172, 0.1), transparent 32%),
+                linear-gradient(180deg, #0b1114 0%, #11181d 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(11, 17, 20, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+        .topbar-brand,
+        .topbar-nav a,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+        header,
+        .panel,
+        .card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+        header { padding: 2.45rem; margin-bottom: 2rem; }
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+        .lead { font-size: 1.14rem; max-width: 58rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .intro { max-width: 62rem; color: var(--text-muted); }
+        .header-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.4rem; }
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.82rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+        section { margin-bottom: 2rem; }
+        .section-heading { display: flex; align-items: center; gap: 0.7rem; font-size: 1.35rem; margin-bottom: 1rem; }
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(125, 211, 252, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(125, 211, 252, 0.24);
+        }
+        .panel { padding: 1.5rem; }
+        .grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .card { padding: 1.2rem; }
+        .card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+        .card p,
+        .panel p,
+        li { color: var(--text-muted); }
+        .alert h3 { color: var(--accent-alert); }
+        ul { padding-left: 1.1rem; display: grid; gap: 0.45rem; }
+        code { font-family: var(--font-mono); color: var(--text-primary); }
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+        @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="partner.html">Partner</a>
+            <a href="mcp.html">MCP</a>
+            <a href="governance.html">Governance</a>
+            <a href="compiler.html">COMPILER</a>
+            <a href="sweep.html">SWEEP</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Release Backbone</span>
+        <h1>/git</h1>
+        <p class="lead">Git matters because this system needs a disciplined way to move from source to release, keep history, and recover fast when a change misses the mark.</p>
+        <p class="intro">This is a future project page: Git is already useful to the ecosystem, but the deeper integration story is still being built. The goal is to make version control part of the operating model for Pane, Hawk, SWEEP, COMPILER, and the supporting notes and scripts.</p>
+        <div class="header-actions">
+            <a href="#pros" class="cta">Pros</a>
+            <a href="#overcome" class="cta">What Is Solved</a>
+            <a href="#future" class="cta">Future</a>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="section-heading">Why It Matters <span class="badge">Source Control</span></h2>
+        <div class="panel">
+            <p>Git gives the ecosystem a clean memory: what changed, when it changed, why it changed, and how to get back if a release does not hold up.</p>
+            <p>For a project built around trust boundaries and controlled runtime behavior, that is not optional bookkeeping. It is part of the system architecture.</p>
+        </div>
+    </section>
+
+    <section id="pros">
+        <h2 class="section-heading">Pros <span class="badge">Already Valuable</span></h2>
+        <div class="grid">
+            <article class="card">
+                <h3>Traceability</h3>
+                <p>Every release and note can point back to a commit, which makes decisions easier to audit and explain.</p>
+            </article>
+            <article class="card">
+                <h3>Rollback</h3>
+                <p>If a change breaks trust or behavior, the system can return to a known-good state instead of guessing from memory.</p>
+            </article>
+            <article class="card">
+                <h3>Branchable Work</h3>
+                <p>Exploration, releases, and experiments can stay separated instead of collapsing into one mutable working copy.</p>
+            </article>
+            <article class="card">
+                <h3>Shared Discipline</h3>
+                <p>Git makes the source of truth visible to collaborators, which reduces accidental drift across local copies and edits.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="overcome">
+        <h2 class="section-heading">What Has Been Overcome <span class="badge">Current Wins</span></h2>
+        <div class="grid">
+            <article class="card alert">
+                <h3>Untracked Change Risk</h3>
+                <p>The project is no longer relying on loose file copies to remember what changed between states.</p>
+            </article>
+            <article class="card alert">
+                <h3>Manual Drift</h3>
+                <p>Git gives a bounded publish path, which makes it harder for source and live behavior to drift without a record.</p>
+            </article>
+            <article class="card">
+                <h3>Release Memory</h3>
+                <p>Tags and commits preserve what was released, which is useful when releases become part of the trust model.</p>
+            </article>
+            <article class="card">
+                <h3>Notebook History</h3>
+                <p>The project’s notes, doctrine, and mined summaries can evolve without losing the earlier reasoning that produced them.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="future">
+        <h2 class="section-heading">Future Direction <span class="badge">Not Done Yet</span></h2>
+        <div class="panel">
+            <p>The future is a stronger release pipeline: branch conventions, tagged releases, commit templates, changelog generation, and tighter coupling between source, sync, and publish steps.</p>
+            <p>Longer term, Git becomes the backbone for promotion: from authoring to review, from review to release, and from release to rollback if needed.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why A Founder Cares <span class="badge">Risk Control</span></h2>
+        <div class="panel">
+            <p>Founders care because Git reduces the cost of mistakes. It makes the system easier to trust, easier to repair, and easier to hand off without losing the story of how it works.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Future release control for governed systems.</p>
+    </footer>
+</div>
+</body>
+</html>
