@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Archive Governance</title>
+    <style>
+        :root {
+            --bg-main: #081018;
+            --bg-card: rgba(16, 24, 34, 0.92);
+            --bg-card-strong: #0d1620;
+            --border-color: rgba(96, 165, 250, 0.18);
+            --text-primary: #eaf4ff;
+            --text-muted: #9bb0c3;
+            --accent: #60a5fa;
+            --accent-soft: #34d399;
+            --accent-warm: #f59e0b;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(96, 165, 250, 0.12), transparent 34%),
+                radial-gradient(circle at top right, rgba(52, 211, 153, 0.08), transparent 28%),
+                linear-gradient(180deg, #081018 0%, #0c141b 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.04) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent);
+        }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(8, 16, 24, 0.86);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+        .topbar-brand, .topbar-nav a, .cta { font-family: var(--font-mono); text-decoration: none; }
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a { color: var(--text-muted); padding: 0.32rem 0.65rem; border-radius: 999px; border: 1px solid transparent; font-size: 0.92rem; }
+        .topbar-nav a:hover, .cta:hover { color: var(--text-primary); text-decoration: underline; }
+        header, .panel, .card { border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
+        header { padding: 2.25rem; margin-bottom: 2rem; }
+        .eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent-warm); margin-bottom: 0.9rem; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1; letter-spacing: -0.06em; margin-bottom: 0.95rem; }
+        .lead { font-size: 1.1rem; max-width: 58rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .intro { max-width: 60rem; color: var(--text-muted); }
+        .header-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.3rem; }
+        .cta { display: inline-flex; align-items: center; justify-content: center; padding: 0.8rem 1rem; border-radius: 999px; border: 1px solid var(--border-color); color: var(--accent); font-size: 0.86rem; }
+        section { margin-bottom: 2rem; }
+        .section-heading { display: flex; align-items: center; gap: 0.7rem; font-size: 1.35rem; margin-bottom: 1rem; }
+        .badge { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.22rem 0.55rem; border-radius: 999px; background: rgba(96, 165, 250, 0.1); color: var(--accent); border: 1px solid rgba(96, 165, 250, 0.24); }
+        .panel { padding: 1.45rem; }
+        .grid-2, .grid-3 { display: grid; gap: 1rem; }
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .card { padding: 1.2rem; background: var(--bg-card-strong); }
+        .card h3 { font-family: var(--font-mono); font-size: 0.98rem; color: var(--accent); margin-bottom: 0.6rem; }
+        .card p, .panel p, .card li { color: var(--text-muted); }
+        .stack { display: grid; gap: 0.7rem; }
+        .stack p { color: var(--text-muted); }
+        code { font-family: var(--font-mono); font-size: 0.92em; color: #d8f0ff; }
+        footer { margin-top: 2.5rem; padding-top: 1rem; color: var(--text-muted); font-size: 0.85rem; text-align: center; font-family: var(--font-mono); }
+        @media (max-width: 860px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .topbar { border-radius: 24px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html#top" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html#pane">Pane</a>
+            <a href="index.html#stack">Stack</a>
+            <a href="index.html#tracks">Tracks</a>
+            <a href="index.html#repos">Repos</a>
+            <a href="index.html#doctrine">Doctrine</a>
+            <a href="partner.html">Partner</a>
+            <a href="mcp.html">MCP</a>
+            <a href="governance.html">Governance</a>
+            <a href="compiler.html">COMPILER</a>
+            <a href="git.html">Git</a>
+            <a href="sweep.html">SWEEP</a>
+            <a href="savepath.html">Savepath</a>
+            <a href="archive.html">Archive</a>
+            <a href="common.html">COMMON</a>
+            <a href="notepad.html">Notepad</a>
+            <a href="launcher.html">Launcher</a>
+            <a href="hawk.html">Hawk</a>
+            <a href="case.html">CASE</a>
+            <a href="novel.html">Novel</a>
+            <a href="improvements.html">Improvements</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Governed Archive</span>
+        <h1>Archive</h1>
+        <p class="lead">Archive is the governance layer for long-term file retention: pattern-first naming, independent logging, duplicate safety, and nested `.archive` flattening for the DOS estate.</p>
+        <p class="intro">The command stub exists first because the policy matters. This is not blind compression or accidental cleanup. It is a controlled archive pattern for files and folders that need to stay recoverable, auditable, and easy to reason about over time.</p>
+        <div class="header-actions">
+            <a class="cta" href="archive.cmd">Open archive.cmd</a>
+            <a class="cta" href="index.html#repos">Back to repos</a>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="section-heading">What Archive Does <span class="badge">Pattern First</span></h2>
+        <div class="grid-3">
+            <article class="card">
+                <h3>File And Folder Pattern</h3>
+                <p>Archive applies a naming contract to both files and folders: <code>filename_ext-YYYYMMDD-[Day of Week, 3 letters]-hhmmss.cs.FILES</code> and <code>filename_ext-YYYYMMDD-[Day of Week, 3 letters]-hhmmss.cs.FOLDERS</code>.</p>
+            </article>
+            <article class="card">
+                <h3>Independent Log</h3>
+                <p>The archive log stays separate so archive events do not get buried inside other cleanup or sweep activity.</p>
+            </article>
+            <article class="card">
+                <h3>Scope Control</h3>
+                <p>The current scope is <code>\DOS</code> only. That keeps the blast radius low while the pattern and policy are refined.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Strengths <span class="badge">Retention + Clarity</span></h2>
+        <div class="grid-2">
+            <article class="card">
+                <h3>Recoverable Naming</h3>
+                <p>Names stay deterministic, and dot characters inside the base name are preserved instead of being flattened away.</p>
+            </article>
+            <article class="card">
+                <h3>Duplicate Safety</h3>
+                <p>Duplicates do not stop the archive. They get tagged so the process continues without losing provenance.</p>
+            </article>
+            <article class="card">
+                <h3>Nested .archive Flattening</h3>
+                <p>If a folder under <code>.archive</code> contains its own <code>.archive</code>, the nested content gets moved up and the inner container is removed.</p>
+            </article>
+            <article class="card">
+                <h3>Policy Over Guessing</h3>
+                <p>Files or folders that do not match the pattern get renamed rather than left ambiguous.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Weaknesses It Overcomes <span class="badge">From Ad Hoc To Governed</span></h2>
+        <div class="panel stack">
+            <p>Archive exists to remove the weakness of ad hoc retention: stray names, inconsistent folder history, duplicate collisions, and nested archive clutter.</p>
+            <p>Instead of treating long-term storage as a side effect, it treats it as a governed process with naming rules, logging, and repeatable behavior.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why A Founder Cares <span class="badge">Low Friction</span></h2>
+        <div class="panel stack">
+            <p>A founder should care because retention problems become expensive when teams need to preserve evidence, history, or old system states and nobody can reliably find what happened.</p>
+            <p>Archive keeps the old material legible without turning the system into a manual sorting project.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Future Direction <span class="badge">Not Yet Active</span></h2>
+        <div class="grid-2">
+            <article class="card">
+                <h3>Processor Later</h3>
+                <p>The current file is policy-only. The processor can come later once the rules are stable and the archive story is ready to execute.</p>
+            </article>
+            <article class="card">
+                <h3>Menu Surface</h3>
+                <p>The next layer can become a menu or command surface that makes the archive rules easy to apply without exposing unnecessary complexity.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Source Note <span class="badge">Policy Stub</span></h2>
+        <div class="panel stack">
+            <p><code>archive.cmd</code> is intentionally inert for now. It records the governance rules, keeps the policy visible, and leaves execution for later.</p>
+            <p>The current pattern is the governance for archived files.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Archive governance is a policy surface, not a cleanup accident.</p>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Agnes</title>
+    <style>
+        :root {
+            --bg-main: #081018;
+            --bg-card: rgba(16, 24, 34, 0.92);
+            --bg-card-strong: #0d1620;
+            --border-color: rgba(96, 165, 250, 0.18);
+            --text-primary: #eaf4ff;
+            --text-muted: #9bb0c3;
+            --accent: #60a5fa;
+            --accent-soft: #34d399;
+            --accent-warm: #f59e0b;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(96, 165, 250, 0.12), transparent 34%),
+                radial-gradient(circle at top right, rgba(52, 211, 153, 0.08), transparent 28%),
+                linear-gradient(180deg, #081018 0%, #0c141b 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(96, 165, 250, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(96, 165, 250, 0.04) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.92), transparent);
+        }
+        .container { max-width: 1040px; margin: 0 auto; }
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(8, 16, 24, 0.86);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+        .topbar-brand, .topbar-nav a, .cta { font-family: var(--font-mono); text-decoration: none; }
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a { color: var(--text-muted); padding: 0.32rem 0.65rem; border-radius: 999px; border: 1px solid transparent; font-size: 0.92rem; }
+        .topbar-nav a:hover, .cta:hover { color: var(--text-primary); text-decoration: underline; }
+        header, .panel, .card { border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 18px; box-shadow: var(--shadow); backdrop-filter: blur(10px); }
+        header { padding: 2.25rem; margin-bottom: 2rem; }
+        .eyebrow { display: inline-block; font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent-warm); margin-bottom: 0.9rem; }
+        h1 { font-size: clamp(2.4rem, 5vw, 4rem); line-height: 1; letter-spacing: -0.06em; margin-bottom: 0.95rem; }
+        .lead { font-size: 1.1rem; max-width: 58rem; color: var(--text-primary); margin-bottom: 1rem; }
+        .intro { max-width: 60rem; color: var(--text-muted); }
+        .header-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.3rem; }
+        .cta { display: inline-flex; align-items: center; justify-content: center; padding: 0.8rem 1rem; border-radius: 999px; border: 1px solid var(--border-color); color: var(--accent); font-size: 0.86rem; }
+        section { margin-bottom: 2rem; }
+        .section-heading { display: flex; align-items: center; gap: 0.7rem; font-size: 1.35rem; margin-bottom: 1rem; }
+        .badge { font-family: var(--font-mono); font-size: 0.75rem; padding: 0.22rem 0.55rem; border-radius: 999px; background: rgba(96, 165, 250, 0.1); color: var(--accent); border: 1px solid rgba(96, 165, 250, 0.24); }
+        .panel { padding: 1.45rem; }
+        .grid-2, .grid-3 { display: grid; gap: 1rem; }
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .card { padding: 1.2rem; background: var(--bg-card-strong); }
+        .card h3 { font-family: var(--font-mono); font-size: 0.98rem; color: var(--accent); margin-bottom: 0.6rem; }
+        .card p, .panel p { color: var(--text-muted); }
+        .hero-frame {
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid var(--border-color);
+            background: rgba(13, 22, 32, 0.8);
+            box-shadow: var(--shadow);
+        }
+        .hero-frame img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            object-position: center;
+        }
+        .stack { display: grid; gap: 0.7rem; }
+        code { font-family: var(--font-mono); font-size: 0.92em; color: #d8f0ff; }
+        footer { margin-top: 2.5rem; padding-top: 1rem; color: var(--text-muted); font-size: 0.85rem; text-align: center; font-family: var(--font-mono); }
+        @media (max-width: 860px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } .topbar { border-radius: 24px; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html#top" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html#pane">Pane</a>
+            <a href="index.html#tracks">Tracks</a>
+            <a href="partner.html">Partner</a>
+            <a href="hawk.html">Hawk</a>
+            <a href="savepath.html">Savepath</a>
+            <a href="archive.html">Archive</a>
+            <a href="novel.html">Novel</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Pane Mascot</span>
+        <h1>Agnes</h1>
+        <p class="lead">Agnes is Pane’s official mascot: a gray-and-brown tabby with enough presence to make the shell feel alive without turning it into a toy.</p>
+        <p class="intro">She belongs on the page because the ecosystem is not only about policy and routing. It also needs a face that carries warmth, curiosity, and motion. This page keeps her image anchored to that role.</p>
+        <div class="header-actions">
+            <a class="cta" href="hawk.html">Back to Hawk</a>
+            <a class="cta" href="index.html#repos">Back to Repos</a>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="section-heading">Featured Image <span class="badge">Painting Render</span></h2>
+        <div class="hero-frame">
+            <img src="assets/agnes/AgnesPaintingRender.jpg" alt="Agnes, a gray-and-brown tabby cat, in the painting render version" loading="lazy">
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why Agnes Exists <span class="badge">Mascot Role</span></h2>
+        <div class="grid-2">
+            <article class="card">
+                <h3>Human Signal</h3>
+                <p>She gives the system a friendly anchor so the work can stay serious without becoming sterile.</p>
+            </article>
+            <article class="card">
+                <h3>Pane Identity</h3>
+                <p>Agnes marks the surface where prediction, routing, color, and context come together.</p>
+            </article>
+            <article class="card">
+                <h3>Founder Read</h3>
+                <p>A mascot is not decoration here. It is a recognizable part of the product story and the broader ecosystem.</p>
+            </article>
+            <article class="card">
+                <h3>Future Asset</h3>
+                <p>The image can later be reused in Hawk, the homepage, or any partner-facing material that needs a softer entry point.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Image Note <span class="badge">Crop Friendly</span></h2>
+        <div class="panel stack">
+            <p>If the render needs tighter framing later, the hero box is already set up for a clean crop with <code>object-fit: cover</code>.</p>
+            <p>That keeps the page simple: one image, one role, one clear mascot identity.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Agnes is Pane’s official mascot.</p>
+    </footer>
+</div>
+</body>
+</html>
