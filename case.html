@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | CASE Studies</title>
+    <style>
+        :root {
+            --bg-main: #0d110b;
+            --bg-card: rgba(24, 28, 18, 0.9);
+            --bg-card-strong: #171d13;
+            --border-color: rgba(163, 230, 53, 0.18);
+            --text-primary: #f1f8e9;
+            --text-muted: #a8b89e;
+            --accent: #bef264;
+            --accent-warm: #fde68a;
+            --accent-alert: #fb7185;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(190, 242, 100, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(253, 230, 138, 0.10), transparent 28%),
+                linear-gradient(180deg, #0d110b 0%, #151a11 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(190, 242, 100, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(190, 242, 100, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .container { max-width: 1020px; margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(13, 17, 11, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand,
+        .topbar-nav a,
+        .back-link,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .back-link:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+
+        header,
+        .panel,
+        .study-card,
+        .case-card,
+        .claim-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            padding: 2.35rem;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.35rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            max-width: 50rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 54rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.3rem;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+
+        section { margin-bottom: 2rem; }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(190, 242, 100, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(190, 242, 100, 0.24);
+        }
+
+        .panel { padding: 1.5rem; }
+
+        .claim-grid,
+        .case-grid,
+        .study-grid,
+        .summary-grid,
+        .impact-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .claim-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .study-grid { grid-template-columns: 1fr; }
+        .summary-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .impact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        .claim-card,
+        .case-card,
+        .study-card,
+        .summary-card,
+        .impact-card { padding: 1.2rem; }
+
+        .claim-card h3,
+        .case-card h3,
+        .study-card h3,
+        .summary-card h3,
+        .impact-card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .claim-card p,
+        .case-card p,
+        .study-card p,
+        .summary-card p,
+        .impact-card p,
+        .panel p,
+        li { color: var(--text-muted); }
+
+        .study-card.empty {
+            border-style: dashed;
+        }
+
+        .study-card strong,
+        .summary-card strong {
+            color: var(--text-primary);
+        }
+
+        .study-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.85rem;
+            color: var(--accent-warm);
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+        }
+
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        .refs-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .refs-list li {
+            padding: 0.9rem 0;
+            border-bottom: 1px solid rgba(163, 230, 53, 0.12);
+        }
+
+        .refs-list li:last-child {
+            border-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        pre {
+            margin-top: 0.85rem;
+            padding: 0.95rem 1rem;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: rgba(8, 12, 7, 0.45);
+            overflow-x: auto;
+        }
+
+        pre code {
+            display: block;
+            white-space: pre;
+            line-height: 1.5;
+        }
+
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 900px) {
+            .claim-grid,
+            .case-grid,
+            .summary-grid,
+            .impact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .claim-card, .case-card, .study-card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="novel.html">Novel</a>
+            <a href="improvements.html">Improvements</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Command Proof</span>
+        <h1>/case</h1>
+        <p class="lead">CASE is one of the cleanest proofs for why this ecosystem exists. Tiny text-case transforms look modest until you measure how often naming, conversion, path shaping, command composition, and clipboard cleanup interrupt real work on Windows.</p>
+        <p class="intro">This page is the home for the command set and the case studies behind it. The point is not that letter transforms are flashy. The point is that small, immediate reductions in friction reveal how the brain actually wants the machine to behave.</p>
+        <div class="header-actions">
+            <a href="index.html" class="cta">Return to main page</a>
+            <a href="#studies" class="cta">Jump to case studies</a>
+        </div>
+    </header>
+
+    <section>
+        <h2 class="section-heading">Core Claim <span class="badge">Small Tool, Big Payoff</span></h2>
+        <div class="claim-grid">
+            <article class="claim-card">
+                <h3>Naming Friction Is Constant</h3>
+                <p>Windows work is full of file names, labels, tokens, arguments, variables, clipboard snippets, and folder names that want different case styles at different moments.</p>
+            </article>
+            <article class="claim-card">
+                <h3>Manual Cleanup Breaks Flow</h3>
+                <p>Every stop to fix spacing, casing, separators, or title style is small in isolation and expensive in aggregate because it breaks the thread of thought.</p>
+            </article>
+            <article class="claim-card">
+                <h3>CASE Makes The Point Visible</h3>
+                <p>Because the command is simple and immediate, it becomes an easy proof that anti-friction infrastructure is not theory. It saves thought by saving tiny recoveries.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">CASE Vocabulary <span class="badge">Working Terms</span></h2>
+        <div class="case-grid">
+            <article class="case-card">
+                <h3>Enforced Strict CASE Engine</h3>
+                <p>An execution surface that treats letter casing as a binary contract rather than a cosmetic preference. Names arrive in one exact form, and the engine expects to compare or route them without compatibility cleanup.</p>
+            </article>
+            <article class="case-card">
+                <h3>I/O Routing</h3>
+                <p>The path by which strings, filenames, handles, wrappers, and resource requests are resolved into actual system actions. CASE matters here because every normalization step inserted into routing adds friction.</p>
+            </article>
+            <article class="case-card">
+                <h3>Search Complexity</h3>
+                <p>The real question is not only whether a lookup succeeds, but how much translation and comparison work must happen before it succeeds. CASE reduces the amount of interpretive work inserted into lookup paths.</p>
+            </article>
+            <article class="case-card">
+                <h3>Memory State</h3>
+                <p>Once strings have been normalized into one exact contract early, the runtime can keep a cleaner internal state. Fewer alternate forms means fewer correction steps during hot execution.</p>
+            </article>
+            <article class="case-card">
+                <h3>CPU Footprint</h3>
+                <p>The more normalization, branching, and comparison logic a route requires, the larger its execution footprint becomes. CASE narrows that footprint by pushing identity decisions earlier.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Current Command Surface <span class="badge">Transform Set</span></h2>
+        <div class="case-grid">
+            <article class="case-card">
+                <h3>Primary Transforms</h3>
+                <p><code>lower</code>, <code>upper</code>, <code>camel</code>, <code>snake</code>, <code>kebab</code>, <code>proper</code>, <code>train</code>, <code>screaming</code>, <code>dot</code>.</p>
+            </article>
+            <article class="case-card">
+                <h3>Why They Matter</h3>
+                <p>They bridge human naming and machine naming across scripting, file organization, wrapper generation, UI labels, code symbols, and repeatable command workflows.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What CASE Improves <span class="badge">Windows Workflow</span></h2>
+        <div class="panel">
+            <ul>
+                <li>Renaming strings without breaking concentration</li>
+                <li>Moving between code, shell, filenames, UI labels, and documentation faster</li>
+                <li>Reducing repetitive cleanup when shaping wrappers and command identities</li>
+                <li>Making naming transforms predictable instead of ad hoc</li>
+                <li>Showing that utility commands can be tiny and still architecturally meaningful</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="studies">
+        <h2 class="section-heading">Case Studies <span class="badge">Incoming</span></h2>
+        <div class="study-grid">
+            <article class="study-card">
+                <h3>Study 01: Exact CASE As A Windows Systems Optimization</h3>
+                <p><strong>Thesis:</strong> enforcing deterministic case inside a Windows ecosystem is not about typography. It is an execution strategy for reducing case-folding, namespace translation, directory scan fallback, and repeated in-memory string normalization.</p>
+                <div class="study-meta">
+                    <span>Scope: Win32 + NT namespaces</span>
+                    <span>Angle: performance architecture</span>
+                    <span>Use: proof of anti-friction design</span>
+                    <span>Support: Basu / Tridgell / Spall et al.</span>
+                </div>
+            </article>
+
+            <article class="study-card">
+                <h3>1. Win32 I/O Path And UpcaseTable Overhead</h3>
+                <p>At the NT kernel and file-system level, Windows has case-sensitive primitives. But the Win32 layer defaults to case-insensitive behavior for compatibility. That default is not free.</p>
+                <p><strong>Case-Insensitive Window Layer:</strong> this is the compatibility band where exact names are treated as if they might not be exact, forcing the system to spend time normalizing, translating, and reconciling path strings before direct execution can proceed.</p>
+                <p><strong>I/O routing impact:</strong> once names enter a case-insensitive routing path, the system is no longer just opening a file. It is mediating identity through a compatibility layer before the request can hit the target cleanly.</p>
+                <p><strong>Mechanism detail:</strong> the compatibility path traverses kernel <code>$Upcase</code> mapping tables per node, pushing each directory or filename segment through case-reconciliation work instead of trusting an exact binary identity from the start.</p>
+                <p>When a standard process asks for a file handle without explicit case-sensitive semantics, Windows must normalize path segments and compare them through its internal uppercase mapping behavior. In practice, each segment pushes the system through additional character handling instead of letting it trust an exact binary match.</p>
+                <p><strong>CASE strategy:</strong> if an enforced strict CASE engine stores or routes paths in one exact, deterministic case and uses <code>FILE_FLAG_POSIX_SEMANTICS</code> where appropriate, it can narrow or bypass part of the Win32 case-folding path and get closer to direct binary comparison behavior.</p>
+                <p><strong>Exact-match path:</strong> when the engine can trust the name, routing moves closer to a direct bitwise memory check (<code>memcmp</code>) and cleaner B-Tree traversal rather than repeated case-reconciliation at each step.</p>
+                <p><strong>Engineering value:</strong> less per-character normalization, less string thrashing, and tighter path matching loops when the same route patterns are hit constantly.</p>
+                <p><strong>Supporting references:</strong> Basu's dissertation on name collisions and canonicalization overhead is relevant here as a structural reference for the cost of name handling across multi-component paths. Microsoft directory case-sensitivity documentation is relevant as the practical Windows control surface.</p>
+            </article>
+
+            <article class="study-card">
+                <h3>2. Samba, Git, And Directory Scan Fallback</h3>
+                <p>Cross-platform storage and source-control workflows expose the penalty more clearly. When a Linux or POSIX-oriented client expects exact case and Windows is still mediating through case-insensitive defaults, user-space code often has to compensate.</p>
+                <p>The expensive version is directory scan fallback: enumerate a directory block, walk every entry, and manually reconcile the exact name that was requested against what is physically present. Under concurrency, this shifts work away from a direct indexed hit and into repeated user-space scanning.</p>
+                <p><strong>Search complexity penalty:</strong> instead of a clean exact lookup, the system falls into an <code>O(N)</code> scanning fallback inside large directory blocks, which compounds badly as concurrency and folder density increase.</p>
+                <p><strong>CASE strategy:</strong> enforce deterministic path casing in the application layer and, where the domain supports it, enable per-directory case sensitivity.</p>
+                <pre><code>fsutil.exe file setCaseSensitiveInfo "C:\DOS\AppMigration" enable</code></pre>
+                <p><strong>Exact lookup model:</strong> the target state is an <code>O(1)</code> point lookup using an exact binary hash match, where the directory engine can go straight to identity instead of searching for a near-enough spelling.</p>
+                <p><strong>Engineering value:</strong> fewer directory-wide scans, more direct index hits, and less I/O stall when many exact-match lookups are competing at once.</p>
+                <p><strong>Supporting references:</strong> Tridgell's Samba paper is the strongest fit for this scenario because it directly discusses the cost of reconciling NTFS-style semantics and case behavior across a POSIX-oriented environment.</p>
+            </article>
+
+            <article class="study-card">
+                <h3>3. Memory Cache Density And String Comparison Costs</h3>
+                <p>The same logic applies in memory. Large PowerShell pipelines, C# controllers, logger loops, and automation routers pay extra every time they compare strings in a case-insensitive way.</p>
+                <pre><code>// Higher-overhead pattern
+if (currentAppPath.Equals(targetPath, StringComparison.OrdinalIgnoreCase)) { ... }</code></pre>
+                <p>That pattern is sometimes necessary, but at high frequency it still means more per-character work and less predictable cache behavior than exact-case matching.</p>
+                <p><strong>Allocation penalty:</strong> case-insensitive routing tends to invite constant allocations for normalization strings or repeated comparison structures, especially once many paths, tokens, or state keys are being evaluated in tight succession.</p>
+                <p><strong>Boundary penalty:</strong> repeated ignore-case handling can also drag in frequent user-to-kernel boundary checks for locale-aware or system-backed case behavior, widening the cost beyond the string object itself.</p>
+                <p><strong>CASE strategy:</strong> standardize names early so execution paths compare exact forms instead of cleaning them up at decision time. If the string is already baked into a rigid case contract, the runtime can use simpler ordinal comparisons, tighter hashes, and more predictable loops.</p>
+                <p><strong>Fast-path state:</strong> static pointers and zero-allocation reference equality become more realistic targets when identities are stabilized early instead of being rebuilt through normalization on every lookup.</p>
+                <p><strong>Memory state effect:</strong> once the process stops carrying multiple notional spellings of the same identity, its live state becomes easier to compare, cache, and route without per-lookup repair work.</p>
+                <p><strong>CPU footprint result:</strong> tighter loops, fewer branches, fewer helper calls, and a smaller working execution shape inside the processor.</p>
+                <p><strong>Engineering value:</strong> lower allocation pressure, cleaner L1/L2 cache behavior, and less friction inside hot loops that evaluate thousands of state transitions per second.</p>
+                <p><strong>Supporting references:</strong> Spall, Mitchell, and Tobin-Hochstadt provide the best supporting context here for high-density build and tracking loops where dependency checking and exact-match discipline affect runtime behavior materially.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Efficiency Gains <span class="badge">Summary Vector</span></h2>
+        <div class="summary-grid">
+            <article class="summary-card">
+                <h3>I/O Path Efficiency</h3>
+                <p>Exact casing reduces the need for repeated path normalization and helps the system stay closer to direct binary lookup behavior instead of repeatedly translating names for compatibility.</p>
+            </article>
+            <article class="summary-card">
+                <h3>Namespace Stability</h3>
+                <p>Deterministic case makes routing, file identity, wrapper generation, and path governance more predictable across source, runtime, and cross-platform boundaries.</p>
+            </article>
+            <article class="summary-card">
+                <h3>In-Memory Comparison Cost</h3>
+                <p>Pre-baked exact strings reduce the amount of runtime effort spent on normalization, repeated ignore-case matching, and cache-hostile comparison work in tight loops.</p>
+            </article>
+            <article class="summary-card">
+                <h3>Cache-Line Discipline</h3>
+                <p>Linear execution benefits when strings behave like strict binary contracts. More predictable byte paths mean cleaner loops and better alignment with L1 data cache behavior.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why This Matters To Pane <span class="badge">Project Origin Signal</span></h2>
+        <div class="panel">
+            <p>CASE matters here because it demonstrates the project’s central instinct: the machine should not force the user to keep paying tiny cleanup taxes forever. If a naming transform is performed constantly, then it belongs in the operating layer. If exact casing lowers ambiguity, lowers execution overhead, and lowers mental interruption, then it is not cosmetic. It is infrastructure.</p>
+            <p>This is why CASE belongs inside the Pane and <code>\DOS</code> ecosystem. It is a small command family that exposes the larger design rule: reduce friction at the point where thought would otherwise be broken.</p>
+            <p>The deeper engineering claim is that letter casing can be treated as a strict binary interface contract. When that happens, a Windows systems application spends less time leaning on legacy compatibility behavior and more time executing in a direct, linear, cache-friendly way that feels closer to hardware truth than to Win32 accommodation.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Why This Matters In Real Windows Work <span class="badge">Public Case</span></h2>
+        <div class="impact-grid">
+            <article class="impact-card">
+                <h3>Less Friction Per Action</h3>
+                <p>People rename things constantly: files, folders, variables, wrappers, menu labels, clipboard text, and command arguments. CASE removes one of the smallest but most repeated interruptions in a Windows workflow.</p>
+            </article>
+            <article class="impact-card">
+                <h3>Cleaner Automation</h3>
+                <p>Automation improves when names arrive already shaped for execution. That means fewer patch-up steps inside scripts, fewer special cases, and fewer places where the system has to guess what the user meant.</p>
+            </article>
+            <article class="impact-card">
+                <h3>Better Cross-System Travel</h3>
+                <p>Names move between Windows, POSIX tools, source control, build pipelines, and shell wrappers. Deterministic case makes those crossings safer and easier to reason about.</p>
+            </article>
+            <article class="impact-card">
+                <h3>A Good Example Of The Whole Project</h3>
+                <p>CASE is persuasive because it is small. You can feel the payoff immediately. That makes it one of the best public examples of the Pane idea: tiny friction removed at the right layer becomes real cognitive relief.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Public Close <span class="badge">Why It Lands</span></h2>
+        <div class="panel">
+            <p>Most people do not need to care about kernel mapping tables, directory scan fallbacks, or cache-line behavior to understand the value of CASE. They only need to notice that Windows work repeatedly asks them to reshape names by hand, over and over, in ways that interrupt thought.</p>
+            <p>CASE is the proof that these interruptions are worth treating as infrastructure problems. The command looks small. The payoff is not. It saves attention, reduces ambiguity, and gives the system a cleaner internal contract at the same time.</p>
+            <p>That is why this project exists. Pane and <code>\DOS</code> are not trying to add spectacle to Windows. They are trying to remove needless drag without creating splashback somewhere else.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Next CASE Studies <span class="badge">Ready</span></h2>
+        <div class="study-grid">
+            <article class="study-card empty">
+                <h3>Send The Next CASE CS</h3>
+                <p>This page is now structured for multi-study growth. Send the next one and I can add it as another formal entry without changing the site structure.</p>
+                <div class="study-meta">
+                    <span>Status: ready for expansion</span>
+                    <span>Format: stable</span>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">References <span class="badge">Support</span></h2>
+        <div class="panel">
+            <ul class="refs-list">
+                <li>
+                    <strong>Basu, A.</strong> <em>Attacking and Defending Programs from Name Collisions</em>. Pennsylvania State University Electronic Theses and Dissertations.
+                    <br>
+                    <code>https://etda.libraries.psu.edu/files/final_submissions/32554</code>
+                </li>
+                <li>
+                    <strong>Tridgell, A.</strong> <em>Towards Full NTFS Semantics in Samba</em>. Samba VFS Whitepapers.
+                    <br>
+                    <code>https://ftp.samba.org/pub/tridge/talks/vfs.pdf</code>
+                </li>
+                <li>
+                    <strong>Spall, S., Mitchell, N., &amp; Tobin-Hochstadt, S.</strong> <em>Build Scripts with Perfect Dependencies</em>. arXiv, 2020.
+                    <br>
+                    <code>https://arxiv.org/pdf/2007.12737</code>
+                </li>
+                <li>
+                    <strong>Microsoft Documentation.</strong> Windows case-sensitivity controls through <code>fsutil.exe file setCaseSensitiveInfo</code>.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Some of the best infrastructure proofs are the smallest commands.</p>
+    </footer>
+</div>
+</body>
+</html>

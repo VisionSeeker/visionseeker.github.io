@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | Novel Track</title>
+    <style>
+        :root {
+            --bg-main: #0a0c14;
+            --bg-card: rgba(19, 20, 34, 0.88);
+            --bg-card-strong: #121626;
+            --border-color: rgba(196, 181, 253, 0.18);
+            --text-primary: #ede9fe;
+            --text-muted: #a7a0c5;
+            --accent: #c4b5fd;
+            --accent-warm: #fca5a5;
+            --accent-soft: #86efac;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(196, 181, 253, 0.16), transparent 34%),
+                radial-gradient(circle at top right, rgba(252, 165, 165, 0.12), transparent 28%),
+                linear-gradient(180deg, #0a0c14 0%, #121625 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(196, 181, 253, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 181, 253, 0.04) 1px, transparent 1px);
+            background-size: 34px 34px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .container { max-width: 980px; margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(10, 12, 20, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand,
+        .topbar-nav a,
+        .back-link {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .back-link:hover { color: var(--text-primary); text-decoration: underline; }
+
+        header,
+        .panel {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            padding: 2.35rem;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.35rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            max-width: 44rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 48rem;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            display: inline-flex;
+            margin-top: 1.3rem;
+            color: var(--accent);
+            font-size: 0.88rem;
+        }
+
+        section { margin-bottom: 2rem; }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(196, 181, 253, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(196, 181, 253, 0.25);
+        }
+
+        .panel { padding: 1.5rem; }
+
+        .grid-2,
+        .grid-3 {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        .tile {
+            background: var(--bg-card-strong);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.1rem;
+        }
+
+        .tile h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.45rem;
+        }
+
+        .tile p,
+        .panel p,
+        li { color: var(--text-muted); }
+
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 860px) {
+            .grid-2,
+            .grid-3 { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .tile { border-radius: 14px; }
+            header { padding: 1.45rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="improvements.html">Improvements</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Creative Memory Surface</span>
+        <h1>/novel</h1>
+        <p class="lead">The novel track is where the Pane ecosystem stops behaving like infrastructure documentation and starts preserving worldbuilding, story fragments, invented names, unresolved scenes, and voice.</p>
+        <p class="intro">This side of the system is not for flattening imaginative material into business prose. Its job is to preserve strangeness, keep names alive, and give odd fragments a home until they reveal whether they belong to a character, faction, world, technology, or scene.</p>
+        <a href="index.html" class="back-link">Return to the main ecosystem page</a>
+    </header>
+
+    <section>
+        <h2 class="section-heading">Why It Exists <span class="badge">Preserve Voice</span></h2>
+        <div class="panel">
+            <p>Clipboard mining does not only produce product language and operational rules. It also produces fiction. The novel track exists so creative material is not lost when the rest of the system becomes cleaner, stricter, and more governed.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Mining Buckets <span class="badge">World Terms</span></h2>
+        <div class="grid-3">
+            <article class="tile">
+                <h3>Characters and Factions</h3>
+                <p>Names, allegiances, background fragments, voice hints, and strange personal details that should not be normalized away too early.</p>
+            </article>
+            <article class="tile">
+                <h3>Worlds and Concepts</h3>
+                <p>Settings, technologies, lore anchors, coined terms, cosmology, and the rules that make a fictional world feel distinct.</p>
+            </article>
+            <article class="tile">
+                <h3>Scenes and Open Questions</h3>
+                <p>Moments, tensions, unresolved images, half-formed scenes, and questions that are still better left open than prematurely solved.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Source Signals <span class="badge">Fragments</span></h2>
+        <div class="panel">
+            <ul>
+                <li><code>Horseclans Background.txt</code></li>
+                <li><code>Science Faction.txt</code></li>
+                <li><code>Science Faction refers to concepts,.txt</code></li>
+                <li><code>Marion Cottingham.txt</code></li>
+                <li><code>Paradok - The Undocker.txt</code></li>
+                <li>Named story fragments, background dumps, and fiction-heavy AI chat exports</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Handling Rule <span class="badge">No Flattening</span></h2>
+        <div class="grid-2">
+            <article class="tile">
+                <h3>Keep the Oddness</h3>
+                <p>Invented terms, unusual phrases, half-clear cosmology, and slippery character names are valuable. They are not noise just because they are unresolved.</p>
+            </article>
+            <article class="tile">
+                <h3>Mark Uncertainty Clearly</h3>
+                <p>If the meaning is unclear, label it as an open question instead of converting it into safe generic prose. Ambiguity is part of the archive.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Planned Subpages <span class="badge">Next Cuts</span></h2>
+        <div class="grid-2">
+            <article class="tile">
+                <h3>Character Ledger</h3>
+                <p>A dedicated page for recurring names, roles, rivalries, affiliations, and notable fragments of voice or motive.</p>
+            </article>
+            <article class="tile">
+                <h3>Worldbuilding Archive</h3>
+                <p>A page for settings, technologies, factions, lore systems, and recurring conceptual vocabulary.</p>
+            </article>
+            <article class="tile">
+                <h3>Scene Bank</h3>
+                <p>A place for scenes, images, interactions, and narrative sparks that should remain available without being forced into sequence too soon.</p>
+            </article>
+            <article class="tile">
+                <h3>Open Questions</h3>
+                <p>A page for unresolved meanings, unclear canon, and fragments that need to stay alive without pretending to be finished.</p>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Preserve the fragments before you polish the system.</p>
+    </footer>
+</div>
+</body>
+</html>

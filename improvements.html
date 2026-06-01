@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | What Pane and DOS Improve</title>
+    <style>
+        :root {
+            --bg-main: #081015;
+            --bg-card: rgba(15, 25, 29, 0.9);
+            --bg-card-strong: #0f1a20;
+            --border-color: rgba(94, 234, 212, 0.18);
+            --text-primary: #e6fffb;
+            --text-muted: #94aeb0;
+            --accent: #5eead4;
+            --accent-warm: #fcd34d;
+            --accent-alert: #fb7185;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(94, 234, 212, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(252, 211, 77, 0.09), transparent 28%),
+                linear-gradient(180deg, #081015 0%, #0c171c 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(94, 234, 212, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(94, 234, 212, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .container { max-width: 1020px; margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(8, 16, 21, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand,
+        .topbar-nav a,
+        .back-link {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .back-link:hover { color: var(--text-primary); text-decoration: underline; }
+
+        header,
+        .panel,
+        .compare-card,
+        .gain-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            padding: 2.35rem;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.35rem, 5vw, 4rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+
+        .lead {
+            font-size: 1.12rem;
+            max-width: 48rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 52rem;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            display: inline-flex;
+            margin-top: 1.3rem;
+            color: var(--accent);
+            font-size: 0.88rem;
+        }
+
+        section { margin-bottom: 2rem; }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(94, 234, 212, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(94, 234, 212, 0.24);
+        }
+
+        .panel { padding: 1.5rem; }
+
+        .compare-grid,
+        .gain-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .compare-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .gain-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+        .compare-card,
+        .gain-card { padding: 1.2rem; }
+
+        .compare-card h3,
+        .gain-card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .compare-card.before h3 { color: var(--accent-alert); }
+        .compare-card.after h3,
+        .gain-card h3 { color: var(--accent); }
+
+        .compare-card p,
+        .panel p,
+        .gain-card p,
+        li { color: var(--text-muted); }
+
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 900px) {
+            .compare-grid,
+            .gain-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .compare-card, .gain-card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="novel.html">Novel</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">Operational Gains</span>
+        <h1>/improvements</h1>
+        <p class="lead">Pane and <code>\DOS</code> are meant to improve Windows without pretending Windows is the enemy. The target is friction: hidden maintenance, drift, clutter, repeated work, unreviewed changes, and systems that stop making sense once they get powerful.</p>
+        <p class="intro">This page is the practical side of the ecosystem. It explains what actually gets better when source and runtime are separated, policy is reviewable, cleanup is reversible, and the visible machine becomes more architectural and less noisy.</p>
+        <a href="index.html" class="back-link">Return to the main ecosystem page</a>
+    </header>
+
+    <section>
+        <h2 class="section-heading">What Changes <span class="badge">Before / After</span></h2>
+        <div class="compare-grid">
+            <article class="compare-card before">
+                <h3>Ordinary Drift</h3>
+                <p>Files accumulate at root, runtime copies become accidental source of truth, command wrappers sprawl, and the system gets harder to read even while it grows more dependent on memory.</p>
+            </article>
+            <article class="compare-card after">
+                <h3>Governed Surface</h3>
+                <p>Visible root stays architectural, source edits stay authored, runtime is published deliberately, and policy gets promoted through review instead of leaking everywhere by habit.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Key Improvements <span class="badge">Anti-Friction</span></h2>
+        <div class="gain-grid">
+            <article class="gain-card">
+                <h3>Cleaner Root Structure</h3>
+                <p><code>\DOS</code> root becomes a legible map instead of a dumping ground. Visible entries are first-class architecture; support machinery gets hidden or pushed deeper.</p>
+            </article>
+            <article class="gain-card">
+                <h3>Less Invisible Maintenance</h3>
+                <p>SWEEP and governed metadata absorb repetitive cleanup work so attention can stay on real tasks rather than path hunting and manual file triage.</p>
+            </article>
+            <article class="gain-card">
+                <h3>Traceable Automation</h3>
+                <p>Commands, policy changes, and file movement are expected to leave reviewable traces. The system gets stronger because it can explain itself.</p>
+            </article>
+            <article class="gain-card">
+                <h3>Safer Runtime Behavior</h3>
+                <p>Pane and Hawk treat runtime as trusted infrastructure. Signing, ACLs, narrow publish paths, and explicit boundaries make drift harder and recovery simpler.</p>
+            </article>
+            <article class="gain-card">
+                <h3>Human-Readable Policy</h3>
+                <p><code>mcp.ini</code> and doctrine pages keep rules reviewable. The system may learn, but it should not mutate its own operating logic in silence.</p>
+            </article>
+            <article class="gain-card">
+                <h3>Better Working Focus</h3>
+                <p>The payoff is cognitive, not just technical: fewer context breaks, fewer repeated chores, less operational noise, and more time spent doing the work itself.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What It Improves On <span class="badge">Windows + Workflow</span></h2>
+        <div class="panel">
+            <ul>
+                <li>Root clutter that makes the machine look improvised instead of deliberate</li>
+                <li>Loose scripts and wrappers that are powerful but not well-governed</li>
+                <li>Runtime trees that can drift from source without anyone noticing</li>
+                <li>Automation that cannot explain what it did or why it did it</li>
+                <li>File cleanup that feels destructive, silent, or irreversible</li>
+                <li>Desktop structure that forces memory to compensate for poor presentation</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Design Temperament <span class="badge">Without Splashback</span></h2>
+        <div class="compare-grid">
+            <article class="compare-card after">
+                <h3>Sharper, Not Louder</h3>
+                <p>The ecosystem should feel more intentional, more controlled, and more capable without turning into a flashy layer that creates new confusion while trying to solve old confusion.</p>
+            </article>
+            <article class="compare-card after">
+                <h3>Trust Before Cleverness</h3>
+                <p>Improvements count only if they preserve security, forensics, governance, and presentation together. A clever shortcut that weakens trust is regression, not progress.</p>
+            </article>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Reduce friction, keep the machine legible, and leave recovery easier than repair.</p>
+    </footer>
+</div>
+</body>
+</html>
