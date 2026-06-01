@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H.I. Technologies | For Owners and Visionaries</title>
+    <style>
+        :root {
+            --bg-main: #0b0f13;
+            --bg-card: rgba(18, 24, 30, 0.9);
+            --bg-card-strong: #121a20;
+            --border-color: rgba(125, 211, 252, 0.18);
+            --text-primary: #edf6fb;
+            --text-muted: #9bb0bb;
+            --accent: #7dd3fc;
+            --accent-warm: #fbbf24;
+            --accent-soft: #34d399;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+            --font-sans: "Segoe UI Variable Text", "Trebuchet MS", "Segoe UI", sans-serif;
+            --font-mono: "Cascadia Code", "Consolas", "Fira Code", monospace;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background:
+                radial-gradient(circle at top left, rgba(125, 211, 252, 0.14), transparent 34%),
+                radial-gradient(circle at top right, rgba(251, 191, 36, 0.09), transparent 28%),
+                linear-gradient(180deg, #0b0f13 0%, #111820 100%);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.65;
+            padding: 2rem 1rem 3rem;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(125, 211, 252, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(125, 211, 252, 0.035) 1px, transparent 1px);
+            background-size: 32px 32px;
+            mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.9), transparent);
+        }
+
+        .container { max-width: 1040px; margin: 0 auto; }
+
+        .topbar {
+            position: sticky;
+            top: 1rem;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            background: rgba(11, 15, 19, 0.84);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(14px);
+        }
+
+        .topbar-brand,
+        .topbar-nav a,
+        .cta {
+            font-family: var(--font-mono);
+            text-decoration: none;
+        }
+
+        .topbar-brand { color: var(--text-primary); font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; }
+        .topbar-nav { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+        .topbar-nav a {
+            color: var(--text-muted);
+            padding: 0.32rem 0.65rem;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            font-size: 0.92rem;
+        }
+        .topbar-nav a:hover,
+        .cta:hover { color: var(--text-primary); text-decoration: underline; }
+
+        header,
+        .panel,
+        .fit-card,
+        .pilot-card,
+        .proof-card {
+            border: 1px solid var(--border-color);
+            background: var(--bg-card);
+            border-radius: 18px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            padding: 2.45rem;
+            margin-bottom: 2rem;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-warm);
+            margin-bottom: 0.9rem;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4.2rem);
+            line-height: 1;
+            letter-spacing: -0.06em;
+            margin-bottom: 0.95rem;
+        }
+
+        .lead {
+            font-size: 1.14rem;
+            max-width: 54rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .intro {
+            max-width: 58rem;
+            color: var(--text-muted);
+        }
+
+        .header-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.4rem;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.82rem 1rem;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--accent);
+            font-size: 0.86rem;
+        }
+
+        .cta.primary {
+            color: #071117;
+            background: var(--accent);
+            border-color: rgba(125, 211, 252, 0.35);
+        }
+
+        .cta.primary:hover {
+            color: #071117;
+            text-decoration: none;
+            background: #a4e3ff;
+        }
+
+        section { margin-bottom: 2rem; }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            padding: 0.22rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(125, 211, 252, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(125, 211, 252, 0.24);
+        }
+
+        .panel { padding: 1.5rem; }
+
+        .fit-grid,
+        .pilot-grid,
+        .proof-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .fit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .pilot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .proof-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+        .fit-card,
+        .pilot-card,
+        .proof-card { padding: 1.2rem; }
+
+        .fit-card h3,
+        .pilot-card h3,
+        .proof-card h3 {
+            font-family: var(--font-mono);
+            font-size: 0.98rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .fit-card p,
+        .pilot-card p,
+        .proof-card p,
+        .panel p,
+        li { color: var(--text-muted); }
+
+        ul {
+            padding-left: 1.1rem;
+            display: grid;
+            gap: 0.45rem;
+        }
+
+        code {
+            font-family: var(--font-mono);
+            color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1.4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 900px) {
+            .fit-grid,
+            .pilot-grid,
+            .proof-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            body { padding: 1rem 0.85rem 2.5rem; }
+            .topbar { position: static; border-radius: 18px; flex-direction: column; align-items: flex-start; }
+            header, .panel, .fit-card, .pilot-card, .proof-card { border-radius: 14px; }
+            header { padding: 1.45rem; }
+            .header-actions { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="topbar" aria-label="Primary">
+        <a href="index.html" class="topbar-brand">H.I. Technologies</a>
+        <div class="topbar-nav">
+            <a href="index.html">Home</a>
+            <a href="hawk.html">Hawk</a>
+            <a href="case.html">CASE</a>
+            <a href="improvements.html">Improvements</a>
+        </div>
+    </nav>
+
+    <header>
+        <span class="eyebrow">For Owners and Visionaries</span>
+        <h1>/partner</h1>
+        <p class="lead">H.I. Technologies is looking for the right partner: an owner, founder, or visionary who understands that some of the highest-value people in a company are losing too much attention to invisible friction.</p>
+        <p class="intro">This is not a dashboard pitch. It is not generic AI enthusiasm. It is a proposal to build anti-friction Windows infrastructure for teams that already have sharp operators, but need a better operating environment around them.</p>
+        <div class="header-actions">
+            <a href="#fit" class="cta primary">Who This Is For</a>
+            <a href="#pilot" class="cta">What A Pilot Looks Like</a>
+            <a href="#proof" class="cta">Why Believe It</a>
+        </div>
+    </header>
+
+    <section id="fit">
+        <h2 class="section-heading">Who This Is For <span class="badge">Partner Fit</span></h2>
+        <div class="fit-grid">
+            <article class="fit-card">
+                <h3>Owners With Operational Sprawl</h3>
+                <p>Your team gets real work done, but too much of the process still depends on memory, workarounds, path hunting, and manual cleanup that never quite becomes a system.</p>
+            </article>
+            <article class="fit-card">
+                <h3>Visionaries Who Value Leverage</h3>
+                <p>You are not looking for noise, gimmicks, or “AI everywhere.” You want a better substrate for execution: less drag, cleaner routine, stronger trust, and more operator flow.</p>
+            </article>
+            <article class="fit-card">
+                <h3>Teams With People Like Me</h3>
+                <p>Every company has one or two people carrying too much tacit workflow intelligence in their heads. This work is about turning that intelligence into infrastructure instead of burnout.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What Problem This Solves <span class="badge">Invisible Friction</span></h2>
+        <div class="panel">
+            <p>Most companies do not notice how much value they lose to small interruptions: naming cleanup, stale wrappers, scattered files, brittle command habits, unclear routing, folder drift, and tooling that makes smart people do repetitive recovery work all day.</p>
+            <p>Pane, <code>\DOS</code>, Hawk, SWEEP, and the surrounding ecosystem are an attempt to build the opposite: a Windows environment that remembers more, routes better, stays legible, and reduces the invisible maintenance tax on skilled people.</p>
+        </div>
+    </section>
+
+    <section id="pilot">
+        <h2 class="section-heading">What A Pilot Looks Like <span class="badge">Practical Start</span></h2>
+        <div class="pilot-grid">
+            <article class="pilot-card">
+                <h3>Start With One Friction Surface</h3>
+                <p>Pick a high-repeat area: file routing, naming transforms, shell workflows, cleanup logic, or operator-facing Windows structure. Measure how often it interrupts real work today.</p>
+            </article>
+            <article class="pilot-card">
+                <h3>Build A Trusted Layer</h3>
+                <p>Implement a governed, logged, human-readable improvement that people can actually feel. No black box, no spectacle, no broad rollout before trust exists.</p>
+            </article>
+            <article class="pilot-card">
+                <h3>Prove Cognitive Relief</h3>
+                <p>The point is not only technical correctness. The point is that operators stop paying the same tiny cost over and over, and that freed attention becomes visible in throughput and clarity.</p>
+            </article>
+            <article class="pilot-card">
+                <h3>Expand Only If It Earns The Right</h3>
+                <p>Once one surface proves itself, extend into adjacent workflow layers. This is infrastructure growth, not feature sprawl.</p>
+            </article>
+        </div>
+    </section>
+
+    <section id="proof">
+        <h2 class="section-heading">Why Believe This <span class="badge">Proof Surfaces</span></h2>
+        <div class="proof-grid">
+            <article class="proof-card">
+                <h3>CASE Shows The Pattern</h3>
+                <p>Tiny naming transforms can save real cognitive energy because they remove repeated manual recovery. That is a small but clear proof of the larger anti-friction thesis.</p>
+            </article>
+            <article class="proof-card">
+                <h3>Hawk Shows The Interface</h3>
+                <p>A predictive, reactive context menu surface shows how the desktop itself can become more aligned with intent instead of making every action harder to reach.</p>
+            </article>
+            <article class="proof-card">
+                <h3>SWEEP Shows Governance</h3>
+                <p>Cleanup, routing, and metadata can become safer and more legible when the system proposes before it applies and preserves before it deletes.</p>
+            </article>
+            <article class="proof-card">
+                <h3>\DOS Shows Structure</h3>
+                <p>The root environment can become architectural instead of noisy. That matters because presentation is not decoration. It changes how people think inside the machine.</p>
+            </article>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">What I Am Looking For <span class="badge">Right Partner</span></h2>
+        <div class="panel">
+            <ul>
+                <li>An owner or visionary who sees operational drag as a solvable systems problem.</li>
+                <li>A team with skilled operators who would benefit from a better Windows workbench around them.</li>
+                <li>A partner who values clarity, trust, and infrastructure depth over trend-chasing.</li>
+                <li>A collaboration that can turn these ideas into a real pilot, real outcomes, and eventually a product or platform.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-heading">Simple Close <span class="badge">Partnership Thesis</span></h2>
+        <div class="panel">
+            <p>If your company has people who move faster than the environment around them, then the environment is the bottleneck. H.I. Technologies is about fixing that bottleneck.</p>
+            <p>The right partner is not just buying software. They are helping shape a better operating layer for Windows work: one that lowers drag, preserves trust, and gives strong people a cleaner place to do strong work.</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 H.I. Technologies. Build a better environment for the people already carrying the work.</p>
+    </footer>
+</div>
+</body>
+</html>
